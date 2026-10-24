@@ -1,0 +1,59 @@
+@import "tailwindcss";
+
+/*
+ * ACCS 2026 tokens, copied from Figma variables
+ * (collections "ACCS 2026 / Primitives · PROPOSED" and "ACCS 2026 / Semantic · PROPOSED", LIGHT mode).
+ */
+:root {
+  --accs-canvas: #f5f7fb; /* neutral/50 */
+  --accs-surface: #ffffff; /* brand/source-white */
+  --accs-text-primary: #172033; /* brand/source-ink */
+  --accs-text-secondary: #46516a; /* neutral/700 */
+  --accs-border-subtle: #dce2ec; /* neutral/200 */
+  --accs-action: #032e87; /* brand/source-blue */
+  --accs-action-hover: #022568; /* brand/hover */
+  --accs-on-action: #ffffff;
+  --accs-focus: #3157d5; /* brand/focus-light */
+  --accs-info-bg: #eff4ff; /* info/50 */
+  --accs-secondary-bg: #e8faf7; /* secondary/50 */
+  --accs-secondary-fg: #075d59; /* secondary/800 */
+  --accs-accent-bg: #f4eeff; /* accent/50 */
+  --accs-accent-fg: #45257d; /* accent/800 */
+}
+
+@theme inline {
+  --color-canvas: var(--accs-canvas);
+  --color-surface: var(--accs-surface);
+  --color-ink: var(--accs-text-primary);
+  --color-ink-secondary: var(--accs-text-secondary);
+  --color-line: var(--accs-border-subtle);
+  --color-action: var(--accs-action);
+  --color-action-hover: var(--accs-action-hover);
+  --color-on-action: var(--accs-on-action);
+  --color-focus: var(--accs-focus);
+  --color-info-bg: var(--accs-info-bg);
+  --color-secondary-bg: var(--accs-secondary-bg);
+  --color-secondary-fg: var(--accs-secondary-fg);
+  --color-accent-bg: var(--accs-accent-bg);
+  --color-accent-fg: var(--accs-accent-fg);
+
+  /* Text styles "ACCS 2026 / *": headings Plus Jakarta Sans, body Inter */
+  --font-display: var(--font-plus-jakarta-sans);
+  --font-sans: var(--font-inter);
+
+  --radius-card: 12px; /* radius/12 */
+}
+
+html {
+  color-scheme: light;
+}
+
+body {
+  background: var(--accs-canvas);
+  color: var(--accs-text-primary);
+}
+
+:focus-visible {
+  outline: 2px solid var(--accs-focus);
+  outline-offset: 2px;
+}
