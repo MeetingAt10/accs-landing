@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { Inter, JetBrains_Mono, Plus_Jakarta_Sans } from "next/font/google";
 import { Providers } from "./providers";
+import { SiteHeader, SiteFooter } from "./_components/site-chrome";
 import "./globals.css";
 
 const inter = Inter({
@@ -23,10 +24,10 @@ export const metadata: Metadata = {
   metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL ?? "https://d1o7nnm2soozyn.cloudfront.net"),
   title: "ACCS · Access for College of Computer Studies",
   description:
-    "Your Access to the College of Computer Studies: student support, an academic forum, and confidential concern reporting in one place. Coming soon.",
+    "ACCS is a capstone prototype for the QCU College of Computer Studies: community, consultations and confidential concern reporting in one workspace.",
   openGraph: {
     title: "ACCS · Access for College of Computer Studies",
-    description: "Your Access to the College of Computer Studies. Coming soon.",
+    description: "Your Access to the College of Computer Studies. A capstone prototype by Meeting At 10.",
     type: "website",
   },
 };
@@ -42,7 +43,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html lang="en" className={`${inter.variable} ${plusJakartaSans.variable} ${jetbrainsMono.variable} antialiased`}>
       <body className="ds-body">
-        <Providers>{children}</Providers>
+        <Providers><SiteHeader />{children}<SiteFooter /></Providers>
       </body>
     </html>
   );

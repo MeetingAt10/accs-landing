@@ -1,0 +1,424 @@
+{
+  "$source": "capstone-drive/01_Documents/Final_Miscs/Module Inventory /DOC003_MODULE-INVENTORY.xlsm, sheet 'Module Inventory', rows 7-64 (columns A-E). Extracted 2026-11-01.",
+  "roles": [
+    "All users",
+    "Student",
+    "CCS Student Organization",
+    "Professor",
+    "CCS Staff",
+    "Program Chair",
+    "Dean",
+    "QCU Administrator / Moderator",
+    "Guidance",
+    "OSAS",
+    "Office of the University President"
+  ],
+  "modules": [
+    {
+      "id": "ALL-01",
+      "name": "Identity and role access",
+      "role": "All users",
+      "description": "Signs in a verified QCU account and presents the functions allowed for its role.",
+      "coreFunctionality": "Authentication; role dashboard; permission checks."
+    },
+    {
+      "id": "ALL-02",
+      "name": "Profiles and personnel directory",
+      "role": "All users",
+      "description": "Shows verified role identity and an institutional directory for CCS, Guidance, and OSAS.",
+      "coreFunctionality": "Role badge; professional/educational profile; directory search; QCU email contact."
+    },
+    {
+      "id": "ALL-03",
+      "name": "CCS feed and announcements",
+      "role": "All users",
+      "description": "Provides CCS-wide discussions and official announcements to every role.",
+      "coreFunctionality": "Read feed; search/filter by scope and label; view announcement priority."
+    },
+    {
+      "id": "ALL-04",
+      "name": "AI navigation assistant",
+      "role": "All users",
+      "description": "Answers system-scoped questions and assists with navigation, schedules, report drafting, and milestone explanations.",
+      "coreFunctionality": "FAQ; search guidance; schedule parsing; contextual assistance."
+    },
+    {
+      "id": "ALL-05",
+      "name": "Role-aware notifications",
+      "role": "All users",
+      "description": "Delivers relevant announcements, messages, consultation changes, report replies, and case milestones.",
+      "coreFunctionality": "Priority tiers; inbox; read state; link to source item."
+    },
+    {
+      "id": "STU-01",
+      "name": "Section and subject membership",
+      "role": "Student",
+      "description": "Gives a student access to the sections and subjects in which they are enrolled.",
+      "coreFunctionality": "View membership; enter section/subject spaces; join associated group chat."
+    },
+    {
+      "id": "STU-02",
+      "name": "Discussion participation",
+      "role": "Student",
+      "description": "Lets students create, read, and comment on discussions in permitted spaces.",
+      "coreFunctionality": "Post/comment; choose label; optional anonymous display; search/filter."
+    },
+    {
+      "id": "STU-03",
+      "name": "Student messaging",
+      "role": "Student",
+      "description": "Allows direct messages to professors and peers and participation in class group chats.",
+      "coreFunctionality": "Direct chat; section/subject group chat; message notifications."
+    },
+    {
+      "id": "STU-04",
+      "name": "Student calendar",
+      "role": "Student",
+      "description": "Shows faculty availability and institutional events with a personal task calendar.",
+      "coreFunctionality": "Switch calendars; inspect event details; add personal to-do items."
+    },
+    {
+      "id": "STU-05",
+      "name": "Consultation requests",
+      "role": "Student",
+      "description": "Lets students request professor consultation slots and track approval through completion.",
+      "coreFunctionality": "Browse slots; submit request; view requested/approved/booked/completed/cancelled status."
+    },
+    {
+      "id": "STU-06",
+      "name": "Incident report submission",
+      "role": "Student",
+      "description": "Lets students file a named or anonymous concern with category and severity.",
+      "coreFunctionality": "Draft; categorize; classify severity; submit; receive report ID."
+    },
+    {
+      "id": "STU-07",
+      "name": "Progressive anonymity",
+      "role": "Student",
+      "description": "Lets a student start a confidential conversation anonymously and disclose identity when ready.",
+      "coreFunctionality": "Identity visibility control; secure conversation; disclosure step."
+    },
+    {
+      "id": "STU-08",
+      "name": "Discussion-to-report conversion",
+      "role": "Student",
+      "description": "Offers the discussion author a choice to turn a high-engagement concern into a report.",
+      "coreFunctionality": "Flag possible concern; measure engagement; prompt author; convert on consent."
+    },
+    {
+      "id": "STU-09",
+      "name": "Report and case timeline",
+      "role": "Student",
+      "description": "Shows a student the status and responsible office of their own active reports and Case Files.",
+      "coreFunctionality": "Status; milestone history; office; timestamps; priority notifications."
+    },
+    {
+      "id": "STU-10",
+      "name": "Student faculty evaluation",
+      "role": "Student",
+      "description": "Collects the semestral faculty evaluations assigned to the student's section.",
+      "coreFunctionality": "Open assigned form; submit answers; show completion state."
+    },
+    {
+      "id": "STU-11",
+      "name": "Account standing view",
+      "role": "Student",
+      "description": "Shows a neutral standing badge and applicable feature restrictions to the student.",
+      "coreFunctionality": "Standing badge; restriction notice; continued essential access."
+    },
+    {
+      "id": "STU-12",
+      "name": "Notification preferences",
+      "role": "Student",
+      "description": "Lets students prioritize report and case updates above general academic messages.",
+      "coreFunctionality": "Preference settings; urgent report replies; case milestone alerts."
+    },
+    {
+      "id": "ORG-01",
+      "name": "Organization space",
+      "role": "CCS Student Organization",
+      "description": "Provides a distinct CCS organization community and verified visual identity.",
+      "coreFunctionality": "Member space; discussion feed; member access."
+    },
+    {
+      "id": "ORG-02",
+      "name": "Organization announcements",
+      "role": "CCS Student Organization",
+      "description": "Lets authorized organization representatives communicate events and announcements.",
+      "coreFunctionality": "Publish organization updates; attach event details; notify members."
+    },
+    {
+      "id": "PRO-01",
+      "name": "Teaching roster",
+      "role": "Professor",
+      "description": "Shows students enrolled in the professor's assigned sections and subjects.",
+      "coreFunctionality": "Roster view; section filter; subject filter."
+    },
+    {
+      "id": "PRO-02",
+      "name": "Class and faculty discussion",
+      "role": "Professor",
+      "description": "Lets professors post and converse in their classes and CCS faculty space.",
+      "coreFunctionality": "Post/comment; class announcements where authorized; faculty feed."
+    },
+    {
+      "id": "PRO-03",
+      "name": "Professor messaging",
+      "role": "Professor",
+      "description": "Supports direct messages and section group chats with students and colleagues.",
+      "coreFunctionality": "Direct chat; class chat; notifications."
+    },
+    {
+      "id": "PRO-04",
+      "name": "Availability management",
+      "role": "Professor",
+      "description": "Lets professors publish and change available consultation slots.",
+      "coreFunctionality": "Create/edit availability; block unavailable times; calendar sync."
+    },
+    {
+      "id": "PRO-05",
+      "name": "Consultation decisions",
+      "role": "Professor",
+      "description": "Lets professors process student consultation requests and record outcomes.",
+      "coreFunctionality": "Approve/decline; book; complete; cancel."
+    },
+    {
+      "id": "PRO-06",
+      "name": "Assigned grievance queue",
+      "role": "Professor",
+      "description": "Shows reports routed to a professor or adviser for response.",
+      "coreFunctionality": "Assigned queue; report view; response; action history."
+    },
+    {
+      "id": "PRO-07",
+      "name": "Faculty evaluation participation",
+      "role": "Professor",
+      "description": "Lets professors submit peer and upward evaluations using duty-aligned criteria.",
+      "coreFunctionality": "Peer form; Program Chair/Dean form; completion."
+    },
+    {
+      "id": "PRO-08",
+      "name": "Own evaluation summary",
+      "role": "Professor",
+      "description": "Provides a professor with a summary of their faculty evaluation results.",
+      "coreFunctionality": "Read summary; identify feedback themes."
+    },
+    {
+      "id": "STF-01",
+      "name": "Staff workspace",
+      "role": "CCS Staff",
+      "description": "Gives staff a role-specific view of CCS-wide discussions, announcements, and assigned communications.",
+      "coreFunctionality": "Read permitted feeds; contact personnel; use approved staff actions."
+    },
+    {
+      "id": "CHR-01",
+      "name": "Program dashboard",
+      "role": "Program Chair",
+      "description": "Shows sections, reports, and activity for the chair's assigned program.",
+      "coreFunctionality": "Program filtering; section oversight; report summary."
+    },
+    {
+      "id": "CHR-02",
+      "name": "Conflict-aware report intake",
+      "role": "Program Chair",
+      "description": "Receives reports that bypass an adviser due to a detected conflict or are escalated from the first stage.",
+      "coreFunctionality": "Conflict queue; triage; action; escalation."
+    },
+    {
+      "id": "CHR-03",
+      "name": "Program grievance analytics",
+      "role": "Program Chair",
+      "description": "Displays bottlenecks, escalation counts, and resolution rates within the chair's program.",
+      "coreFunctionality": "Metrics; status filter; case drill-down."
+    },
+    {
+      "id": "CHR-04",
+      "name": "Program evaluation oversight",
+      "role": "Program Chair",
+      "description": "Lets chairs participate in faculty evaluation and review program-scoped summaries.",
+      "coreFunctionality": "Evaluation participation; summary review."
+    },
+    {
+      "id": "CHR-05",
+      "name": "Authorized offense view",
+      "role": "Program Chair",
+      "description": "Shows detailed student offense records when needed for program authority.",
+      "coreFunctionality": "First-to-third offense record view; standing context."
+    },
+    {
+      "id": "CHR-06",
+      "name": "Chair communication",
+      "role": "Program Chair",
+      "description": "Lets the chair communicate with faculty and, when permitted, students.",
+      "coreFunctionality": "Direct messages; program posts; calendar access."
+    },
+    {
+      "id": "CHR-07",
+      "name": "Similar-report consolidation",
+      "role": "Program Chair",
+      "description": "Summarizes highly similar reports and both supporting and dissenting sentiments for authorized review.",
+      "coreFunctionality": "Similarity grouping; sentiment summary; source links."
+    },
+    {
+      "id": "DEAN-01",
+      "name": "College oversight dashboard",
+      "role": "Dean",
+      "description": "Shows cross-program activity, case summaries, bottlenecks, and resolution metrics.",
+      "coreFunctionality": "College-wide filters; metrics; authorized drill-down."
+    },
+    {
+      "id": "DEAN-02",
+      "name": "Dean escalation queue",
+      "role": "Dean",
+      "description": "Receives grievances escalated beyond Program Chair and formal case summaries requiring Dean review.",
+      "coreFunctionality": "Escalated queue; action; onward referral."
+    },
+    {
+      "id": "DEAN-03",
+      "name": "Semestral evaluation administration",
+      "role": "Dean",
+      "description": "Configures, deploys, and monitors student and faculty evaluations.",
+      "coreFunctionality": "Questions; instructions; criteria; publication state; completion monitoring."
+    },
+    {
+      "id": "DEAN-04",
+      "name": "College evaluation results",
+      "role": "Dean",
+      "description": "Provides published faculty and leadership evaluation summaries across CCS.",
+      "coreFunctionality": "Aggregate results; underperformance review; follow-up context."
+    },
+    {
+      "id": "DEAN-05",
+      "name": "Authorized disciplinary view",
+      "role": "Dean",
+      "description": "Shows detailed first-to-third offense records for students under Dean authority.",
+      "coreFunctionality": "Offense history; standing; restriction status."
+    },
+    {
+      "id": "DEAN-06",
+      "name": "Dean communication and calendar",
+      "role": "Dean",
+      "description": "Lets the Dean post discussions, message faculty, and inspect events and availability.",
+      "coreFunctionality": "College post; permitted direct chat; calendar view."
+    },
+    {
+      "id": "ADM-01",
+      "name": "Role and system configuration",
+      "role": "QCU Administrator / Moderator",
+      "description": "Manages platform roles and relevant system settings.",
+      "coreFunctionality": "Role assignment; permission configuration; audit trail."
+    },
+    {
+      "id": "ADM-02",
+      "name": "Content moderation",
+      "role": "QCU Administrator / Moderator",
+      "description": "Reviews posts or messages flagged by AI or user reports for harmful content.",
+      "coreFunctionality": "Flag queue; review; disposition; author notice."
+    },
+    {
+      "id": "ADM-03",
+      "name": "Feature restriction administration",
+      "role": "QCU Administrator / Moderator",
+      "description": "Applies or lifts specific interaction restrictions on authorized decision.",
+      "coreFunctionality": "Restrict posting/commenting/anonymous reporting; lift; notify."
+    },
+    {
+      "id": "ADM-04",
+      "name": "Audit and adoption monitoring",
+      "role": "QCU Administrator / Moderator",
+      "description": "Shows platform use, permission actions, and operational logs.",
+      "coreFunctionality": "Adoption counts; audit interface; system status."
+    },
+    {
+      "id": "ADM-05",
+      "name": "Chatbot and uptime monitoring",
+      "role": "QCU Administrator / Moderator",
+      "description": "Tracks assistant use and platform availability.",
+      "coreFunctionality": "Activity counts; error view; uptime status."
+    },
+    {
+      "id": "ADM-06",
+      "name": "Reported-content validation",
+      "role": "QCU Administrator / Moderator",
+      "description": "Validates a user report about a post or comment before any grievance escalation.",
+      "coreFunctionality": "Review report; classify; dismiss or refer."
+    },
+    {
+      "id": "GUD-01",
+      "name": "Case File intake",
+      "role": "Guidance",
+      "description": "Receives reports transferred to Guidance and converts them into formal Case Files.",
+      "coreFunctionality": "Intake queue; case conversion; milestone creation."
+    },
+    {
+      "id": "GUD-02",
+      "name": "Guidance case handling",
+      "role": "Guidance",
+      "description": "Records Guidance interventions, resolutions, and authorized transfers.",
+      "coreFunctionality": "Case notes; milestone updates; resolve/escalate."
+    },
+    {
+      "id": "GUD-03",
+      "name": "Offense and Good Moral support",
+      "role": "Guidance",
+      "description": "Shows authorized offense details and Good Moral prerequisite status.",
+      "coreFunctionality": "Offense view; compliance review."
+    },
+    {
+      "id": "GUD-04",
+      "name": "Restriction oversight",
+      "role": "Guidance",
+      "description": "Reviews feature restrictions for flagged students within Guidance authority.",
+      "coreFunctionality": "Restriction status; review; referral for apply/lift."
+    },
+    {
+      "id": "GUD-05",
+      "name": "Guidance communication and calendar",
+      "role": "Guidance",
+      "description": "Lets Guidance officers communicate with authorized faculty and view institutional dates and availability.",
+      "coreFunctionality": "Direct messages; permitted discussion posts; calendar view."
+    },
+    {
+      "id": "OSAS-01",
+      "name": "OSAS case intake and handling",
+      "role": "OSAS",
+      "description": "Receives formal cases transferred to OSAS and records student affairs actions.",
+      "coreFunctionality": "Stage queue; case action; milestone; resolution or transfer."
+    },
+    {
+      "id": "OSAS-02",
+      "name": "Offense tracking",
+      "role": "OSAS",
+      "description": "Views detailed student offense records for authorized student affairs work.",
+      "coreFunctionality": "First-to-third offense history; standing review."
+    },
+    {
+      "id": "OSAS-03",
+      "name": "Good Moral and restriction oversight",
+      "role": "OSAS",
+      "description": "Reviews compliance prerequisites and feature restrictions for flagged students.",
+      "coreFunctionality": "Compliance review; restriction oversight; permitted change/referral."
+    },
+    {
+      "id": "OSAS-04",
+      "name": "OSAS communication and calendar",
+      "role": "OSAS",
+      "description": "Lets OSAS staff communicate with authorized faculty and view institutional calendars.",
+      "coreFunctionality": "Direct messages; discussion post; events/availability view."
+    },
+    {
+      "id": "PRES-01",
+      "name": "Executive case intake",
+      "role": "Office of the University President",
+      "description": "Receives only cases escalated to the President's Office stage.",
+      "coreFunctionality": "Executive queue; case summary; route history."
+    },
+    {
+      "id": "PRES-02",
+      "name": "Executive case action",
+      "role": "Office of the University President",
+      "description": "Records authorized President's Office action and final case progression.",
+      "coreFunctionality": "Review; record action; return/resolve/transfer as permitted."
+    }
+  ]
+}

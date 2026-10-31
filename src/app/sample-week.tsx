@@ -31,7 +31,7 @@ export function SampleWeek() {
       days={DAYS}
       events={EVENTS}
       now={now}
-      band={<><span className="ds-timetable__band-label"><Icon name="lock" size={16} weight="fill" /><strong>Reports</strong></span>Confidential: you see only your own records.</>}
+      band={<><span className="ds-timetable__band-label"><Icon name="lock" size={16} weight="fill" /><strong>Reports</strong></span>Sample restricted lane. Report visibility depends on your role and case assignment.</>}
     />
   );
 }
