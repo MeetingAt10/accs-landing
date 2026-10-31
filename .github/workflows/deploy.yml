@@ -56,6 +56,9 @@ jobs:
         env:
           NEXT_PUBLIC_SITE_URL: ${{ steps.stack.outputs.url }}
 
+      - name: DOC003 compliance
+        run: npm test
+
       - name: Upload
         run: aws s3 sync out "s3://${{ steps.stack.outputs.bucket }}" --delete
 
