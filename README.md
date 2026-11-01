@@ -1,6 +1,6 @@
 # ACCS landing
 
-Public overview and DOC003 module inventory for the ACCS capstone prototype at the QCU College of Computer Studies. The site uses Next.js 16, React 19 and `@meetingat10/design-system` pinned to GitHub tag `v1.1.0`. It exports static files to `out/`.
+Public landing site and DOC003 module inventory for ACCS, the live workspace for the QCU College of Computer Studies. The site uses Next.js 16, React 19 and `@meetingat10/design-system` pinned to GitHub tag `v1.2.0`. It exports static files to `out/`.
 
 ## Run and verify
 
@@ -29,7 +29,7 @@ See [module compliance](docs/module-compliance.md) for the acceptance scope and 
 
 ## Content and routes
 
-- `/`: prototype overview, three lanes, role explorer, sample week and site directory.
+- `/`: landing page with a live site showcase, features, guidance path, workflow, programs, forum and events.
 - `/modules/`: all 58 modules, grouped by the 11 source role labels and filterable by owning application site.
 
 `src/data/doc003.json` is the checked-in DOC003 source fixture. `src/data/modules.ts` derives the cards, role counts and destinations from it. The ten operational roles share the five All users modules. The explorer keeps every role panel in the exported HTML.
@@ -63,4 +63,4 @@ The Office Hours components provide the navigation, cards, timetable and motion.
 
 `.github/workflows/deploy.yml` runs on pushes to `main` and on manual dispatch. It installs the private design-system dependency with `DS_DEPLOY_KEY`, reads the `LandingBucket`, `LandingDistributionId` and `LandingUrl` outputs from the `accs-dev` CloudFormation stack in `ap-southeast-1`, builds the export, uploads `out/` to S3 and invalidates CloudFront. AWS access uses the repository's configured deployment secrets.
 
-The deployed URL is the corresponding CloudFront default above. Custom domains remain a proposal. This is a capstone prototype with synthetic data and no official QCU endorsement.
+The deployed URL is the corresponding CloudFront default above. Custom domains remain a proposal.

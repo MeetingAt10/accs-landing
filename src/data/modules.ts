@@ -13,12 +13,16 @@ export const moduleSites = {
 } as const;
 
 export type ModuleSite = keyof typeof moduleSites;
+/** Only these sites are linked directly from public pages; every other site is reached through sign-in. */
+const openSites: readonly ModuleSite[] = ['portal', 'forums', 'schedule'];
+export const isOpenSite = (site: ModuleSite) => openSites.includes(site);
+export const signInUrl = `${sites.portal}/sign-in`;
 export const roles: readonly string[] = inventory.roles;
 export const programs = ['BSIT', 'BSCS', 'BSIS'] as const;
 export const modules = inventory.modules.map(module => {
   const site = (Object.keys(moduleSites) as ModuleSite[]).find(key => moduleSites[key].ids.split(' ').includes(module.id));
   if (!site) throw new Error(`DOC003 module has no owning site: ${module.id}`);
-  return { ...module, purpose: module.description, group: moduleSites[site].group, site, href: `${sites[site]}${moduleSites[site].path}` };
+  return { ...module, purpose: module.description, group: moduleSites[site].group, site, href: isOpenSite(site) ? `${sites[site]}${moduleSites[site].path}` : signInUrl };
 });
 export type Module = typeof modules[number];
 export const roleId = (role: string) => `role-${roles.indexOf(role)}`;

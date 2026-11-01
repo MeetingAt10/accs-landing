@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { readFileSync, existsSync } from 'node:fs';
+import { readFileSync, existsSync, readdirSync } from 'node:fs';
 import { join } from 'node:path';
 
 const fixture = JSON.parse(readFileSync('src/data/doc003.json', 'utf8'));
@@ -10,7 +10,7 @@ const pages = ['out/index.html', 'out/modules/index.html'];
 const expectedRoles = ['All users', 'Student', 'CCS Student Organization', 'Professor', 'CCS Staff', 'Program Chair', 'Dean', 'QCU Administrator / Moderator', 'Guidance', 'OSAS', 'Office of the University President'];
 const configured = Object.fromEntries([...readFileSync('src/lib/sites.ts', 'utf8').matchAll(/(\w+):\s*process\.env\.(NEXT_PUBLIC_\w+)\s*\?\?\s*['"]([^'"]+)['"]/g)].map(([, key, env, fallback]) => [key, process.env[env] ?? fallback]));
 const allowed = {
-  portal: ['/sign-in', '/home', '/notifications', '/assistant', '/help', '/standing', '/profile'],
+  portal: ['/sign-in', '/register', '/home', '/notifications', '/assistant', '/help', '/standing', '/profile'],
   forums: ['/feed', '/spaces', '/organizations', '/messages', '/directory'],
   schedule: ['/calendar', '/consultations'],
   cases: ['/reports', '/cases'],
@@ -62,7 +62,7 @@ for (const path of pages) {
   test(`${path}: every image has dimensions/alt and its exported asset exists`, () => {
     const html = readFileSync(path, 'utf8');
     const images = [...html.matchAll(/<img\b[^>]+>/g)];
-    if (path === pages[0]) assert.ok(images.length >= 10);
+    assert.ok(images.length <= 1, 'imagery stays minimal');
     for (const [image] of images) {
       for (const attribute of ['width', 'height', 'alt', 'src']) assert.match(image, new RegExp(`\\b${attribute}="[^"]*"`));
       const src = decode(image.match(/\bsrc="([^"]+)"/)[1]);
@@ -77,30 +77,38 @@ for (const path of pages) {
         const card = html.match(new RegExp(`<article[^>]*data-module="${id}"[^>]*>[\\s\\S]*?<\\/article>`))?.[0];
         assert.ok(card, id);
         assert.ok(card.includes(`data-site="${site}"`), `${id}: ${site}`);
-        assert.ok(card.includes(`href="${configured[site]}`), `${id}: ${configured[site]}`);
+        const open = ['portal', 'forums', 'schedule'].includes(site);
+        assert.ok(card.includes(`href="${open ? configured[site] : `${configured.portal}/sign-in`}`), `${id}: ${site}`);
       }
     }
   });
 }
-test('home counts derive from source and the three named programs', () => {
+test('home shows each site module count from source and the three named programs', () => {
   const html = readFileSync(pages[0], 'utf8');
-  for (const [key, value] of Object.entries({ modules: fixture.modules.length, roles: fixture.roles.length - 1, programs: 3, workspace: 1 })) {
-    assert.match(html, new RegExp(`data-count="${key}" data-value="${value}"`));
+  let total = 0;
+  for (const [site, ids] of Object.entries(ownership)) {
+    const count = ids.split(' ').length;
+    total += count;
+    assert.match(html, new RegExp(`data-site-modules="${site}" data-value="${count}"`));
   }
+  assert.equal(total, fixture.modules.length);
   for (const program of ['BSIT', 'BSCS', 'BSIS']) assert.ok(textOnly(html).includes(program));
 });
-test('lane module references exist in DOC003 and cover the required examples', () => {
-  const html = readFileSync(pages[0], 'utf8');
-  const ids = new Set(fixture.modules.map(item => item.id));
-  const lanes = [...html.matchAll(/data-lane-modules="([^"]+)"/g)];
-  assert.equal(lanes.length, 3);
-  for (const [, list] of lanes) for (const id of list.split(' ')) assert.ok(ids.has(id), id);
-  assert.ok(lanes[0][1].includes('ALL-03'));
-  assert.ok(lanes[1][1].includes('STU-05'));
-  assert.ok(lanes[2][1].includes('PRES-01'));
-});
-test('home includes the complete seven-site directory and honest prototype boundaries', () => {
+test('home presents the seven sites, the boundary, the escalation path and no disclaimers', () => {
   const text = textOnly(readFileSync(pages[0], 'utf8'));
   for (const title of ['ACCS Home', 'Forums', 'Schedule', 'Cases', 'Evaluations', 'Records', 'Admin']) assert.ok(text.includes(title), title);
-  for (const copy of ['Community access never implies report access.', 'not an official QCU service', 'D-04', 'local stub']) assert.ok(text.includes(copy), copy);
+  assert.ok(text.includes('Community access never implies report access.'));
+  assert.match(text, /Adviser.*Program Chair.*Dean.*Guidance.*OSAS.*President’s Office/);
+  assert.ok(text.includes('Sign in') && text.includes('Create account'));
+  assert.doesNotMatch(text, /sample data|synthetic|prototype|simulated|\bdemo\b|not an official/i);
+});
+const walk = dir => readdirSync(dir, { withFileTypes: true }).flatMap(entry => entry.isDirectory() ? walk(join(dir, entry.name)) : entry.name.endsWith('.html') ? [join(dir, entry.name)] : []);
+test('static export never links public visitors to the admin, records, cases or evaluations origins', () => {
+  const blocked = ['admin', 'records', 'cases', 'evaluations'].map(key => new URL(configured[key]).origin);
+  for (const file of walk('out')) {
+    for (const [, raw] of readFileSync(file, 'utf8').matchAll(/\bhref="([^"]+)"/g)) {
+      const href = decode(raw);
+      if (/^https?:/.test(href)) assert.ok(!blocked.includes(new URL(href).origin), `${file}: ${href}`);
+    }
+  }
 });
