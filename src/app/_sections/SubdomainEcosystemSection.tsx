@@ -1,6 +1,6 @@
 'use client';
 import { useState, type ReactNode } from 'react';
-import { Badge, Cell, CaseTimeline, CountUp, Column, ForumCard, Icon, Meter, ReportRecord, Row as TableRow, Segment, SegmentedControl, Switch, Tab, Table, TableBody, TableHeader, TabList, TabPanel, Tabs, Tile, Timetable, type IconName, type TimetableDay, type TimetableEvent, type TileTone } from '@meetingat10/design-system/react';
+import { Badge, Cell, CaseTimeline, CountUp, Column, ForumCard, Icon, ReportRecord, Row as TableRow, Segment, SegmentedControl, Switch, Tab, Table, TableBody, TableHeader, TabList, TabPanel, Tabs, Tile, Timetable, type IconName, type TimetableDay, type TimetableEvent, type TileTone } from '@meetingat10/design-system/react';
 import { modules, signInUrl, type ModuleSite } from '../../data/modules';
 import { sites } from '../../lib/sites';
 import { appSites } from './site-list';
@@ -10,23 +10,23 @@ const roleTiles: Record<string, { icon: IconName; tone: TileTone; title: string;
     { icon: 'calendar-check', tone: 'consult', title: 'Request a consultation', note: 'Pick an open slot with a professor' },
     { icon: 'chats', tone: 'community', title: 'Community feed', note: 'Discussions from your program' },
     { icon: 'flag', tone: 'restricted', title: 'My reports', note: 'Replies and milestones only you can see' },
-    { icon: 'bell', tone: 'neutral', title: 'Notifications', note: 'Role-aware updates' },
+    { icon: 'bell', tone: 'neutral', title: 'Notifications', note: 'Updates for your role' },
   ],
   Professor: [
     { icon: 'clock', tone: 'consult', title: 'Office hours', note: 'Publish and manage availability' },
     { icon: 'chats', tone: 'community', title: 'Class discussions', note: 'Post to your sections' },
-    { icon: 'list-checks', tone: 'neutral', title: 'Evaluations', note: 'Authorized summaries' },
+    { icon: 'list-checks', tone: 'neutral', title: 'Evaluations', note: 'Summaries you may read' },
     { icon: 'bell', tone: 'neutral', title: 'Notifications', note: 'Requests and changes' },
   ],
   'Program Chair': [
     { icon: 'flag', tone: 'restricted', title: 'Assigned queue', note: 'Reports routed to the chair' },
-    { icon: 'archive', tone: 'neutral', title: 'Standing and records', note: 'Authorized program views' },
+    { icon: 'archive', tone: 'neutral', title: 'Standing and records', note: 'Program views you may open' },
     { icon: 'list-checks', tone: 'neutral', title: 'Evaluations', note: 'Program-level results' },
     { icon: 'megaphone', tone: 'community', title: 'Announcements', note: 'Post to the program' },
   ],
   Dean: [
     { icon: 'flag', tone: 'restricted', title: 'Escalated cases', note: 'Cases raised past the chair' },
-    { icon: 'archive', tone: 'neutral', title: 'Records and analytics', note: 'College-wide authorized views' },
+    { icon: 'archive', tone: 'neutral', title: 'Records and analytics', note: 'College-wide views you may open' },
     { icon: 'list-checks', tone: 'neutral', title: 'Evaluation results', note: 'Summaries for the college' },
     { icon: 'megaphone', tone: 'community', title: 'College announcements', note: 'Reach every program' },
   ],
@@ -53,7 +53,7 @@ const adminRoles = ['Student', 'Professor', 'CCS Staff', 'Program Chair'];
 
 function Window({ path, children }: { path: string; children: ReactNode }) {
   return <div className="window">
-    <div className="window__bar"><Icon name="lock" size={16} /><span>{path}</span></div>
+    <div className="window__bar"><span>{path}</span></div>
     <div className="window__body">{children}</div>
   </div>;
 }
@@ -90,7 +90,7 @@ function EvaluationsPreview() {
   const [scores, setScores] = useState<Record<string, string>>({ [criteria[0]]: '4' });
   const done = Object.keys(scores).length;
   return <div className="pv">
-    <Meter label="Evaluation progress" value={Math.round((done / criteria.length) * 100)} valueLabel={`${done} of ${criteria.length} answered`} />
+    <p className="pv-count">{done} of {criteria.length} answered</p>
     {criteria.map(item => <div className="pv-rate" key={item}><span>{item}</span>
       <SegmentedControl aria-label={`${item}, 1 to 5`} selectedKey={scores[item]} onSelectionChange={key => setScores({ ...scores, [item]: String(key) })}>{['1', '2', '3', '4', '5'].map(n => <Segment key={n} id={n}>{n}</Segment>)}</SegmentedControl>
     </div>)}
@@ -124,7 +124,7 @@ const previews: Record<ModuleSite, { path: string; node: ReactNode }> = {
 export function SubdomainEcosystemSection() {
   return <section id="sites" className="band band--sheet" aria-labelledby="sites-title">
     <div className="wrap">
-      <div className="band__head"><h2 id="sites-title">Seven sites<span className="punct">,</span> one college account</h2><p>Each ACCS site owns a set of DOC003 modules. Pick one to see it working, then open it.</p></div>
+      <div className="band__head"><h2 id="sites-title">Seven sites on one college account</h2><p>Each site runs part of the 58 DOC003 modules. Choose a tab to try a working preview, then open the site.</p></div>
       <Tabs defaultSelectedKey="portal" className="eco">
         <TabList aria-label="ACCS sites" className="eco__tabs">{appSites.map(site => <Tab key={site.key} id={site.key} icon={site.icon}>{site.name}</Tab>)}</TabList>
         {appSites.map(site => <TabPanel key={site.key} id={site.key} shouldForceMount className="eco__panel">

@@ -98,7 +98,7 @@ test('home presents the seven sites, the boundary, the escalation path and no di
   const text = textOnly(readFileSync(pages[0], 'utf8'));
   for (const title of ['ACCS Home', 'Forums', 'Schedule', 'Cases', 'Evaluations', 'Records', 'Admin']) assert.ok(text.includes(title), title);
   assert.ok(text.includes('Community access never implies report access.'));
-  assert.match(text, /Adviser.*Program Chair.*Dean.*Guidance.*OSAS.*President’s Office/);
+  assert.match(text, /Adviser.*Program Chair.*Dean.*Guidance.*OSAS.*President's Office/);
   assert.ok(text.includes('Sign in') && text.includes('Create account'));
   assert.doesNotMatch(text, /sample data|synthetic|prototype|simulated|\bdemo\b|not an official/i);
 });

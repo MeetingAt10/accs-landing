@@ -1,6 +1,6 @@
 # ACCS landing
 
-Public landing site and DOC003 module inventory for ACCS, the live workspace for the QCU College of Computer Studies. The site uses Next.js 16, React 19 and `@meetingat10/design-system` pinned to GitHub tag `v1.2.0`. It exports static files to `out/`.
+Public landing site and DOC003 module inventory for ACCS, the live workspace for the QCU College of Computer Studies. The site uses Next.js 16, React 19 and `@meetingat10/design-system` pinned to GitHub tag `v1.2.1`. It exports static files to `out/`.
 
 ## Run and verify
 
@@ -25,20 +25,18 @@ flock /tmp/claude-1000/capstone-build.lock pcore npm run verify
 python3 -m http.server 4173 --directory out
 ```
 
-See [module compliance](docs/module-compliance.md) for the acceptance scope and recorded results.
-
 ## Content and routes
 
-- `/`: landing page with a live site showcase, features, guidance path, workflow, programs, forum and events.
-- `/modules/`: all 58 modules, grouped by the 11 source role labels and filterable by owning application site.
+- `/`: landing page with site previews, features, the concern escalation path, workflow, programs, a forum thread list and upcoming events.
+- `/modules/`: all 58 modules as rows grouped under the 11 source role labels, with a role index and a filter by owning application site.
 
-`src/data/doc003.json` is the checked-in DOC003 source fixture. `src/data/modules.ts` derives the cards, role counts and destinations from it. The ten operational roles share the five All users modules. The explorer keeps every role panel in the exported HTML.
+`src/data/doc003.json` is the checked-in DOC003 source fixture. `src/data/modules.ts` derives the rows, role counts and destinations from it. The ten operational roles share the five All users modules. The exported HTML contains every role section and module row.
 
 The seven application sites are Home, Forums, Schedule, Cases, Evaluations, Records and Admin. Each module links to its owning site. These destinations follow `accs-system/docs/deltas/2026-11-01-subdomain-sites.md`; opening a site does not grant permission to its modules.
 
 ## Design system and imagery
 
-The Office Hours components provide the navigation, cards, timetable and motion. The transparent renders shipped in design system v1.1.0 were generated in `meeting-at-ten-assets/` and processed by the design-system imagery pipeline. The art helper imports WebP assets from the pinned package; Next.js fingerprints them into the static export. Image dimensions come from the package's `imagery` manifest. Decorative images use empty alt text. The linked-C render is a proposed motif; the ACCS wordmark remains the door plate.
+The Office Hours components provide the navigation, forms, timetable and motion. The hero uses one WebP render from the pinned package, and Next.js fingerprints it into the static export. Image dimensions come from the package's `imagery` manifest, and the decorative image has empty alt text. No other page uses imagery. The ACCS wordmark is the door plate.
 
 ## Build-time URLs
 

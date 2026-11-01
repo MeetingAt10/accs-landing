@@ -8,12 +8,12 @@ export const register = `${sites.portal}/register`;
 const icons: Record<ModuleSite, IconName> = { portal: 'house', forums: 'chats', schedule: 'calendar-dots', cases: 'flag', evaluations: 'list-checks', records: 'archive', admin: 'gear' };
 const access: Partial<Record<ModuleSite, string>> = { cases: 'Sign-in required', evaluations: 'Sign-in required', records: 'Staff sign-in required', admin: 'Admin role' };
 const blurbs: Record<ModuleSite, string> = {
-  portal: 'Sign in once, see the dashboard for your role and find the workspaces open to you.',
-  forums: 'College discussions, organization spaces, messages and the people directory.',
-  schedule: 'Faculty availability, consultation requests and the academic calendar.',
-  cases: 'Raise a concern, follow its replies and see each milestone as it happens.',
-  evaluations: 'Faculty evaluation participation, administration and authorized summaries.',
-  records: 'Standing, offense, restriction and analytics views for authorized roles.',
+  portal: 'Sign in once and land on the dashboard for your role, with links to the sites you can use.',
+  forums: 'College discussions, organization spaces, direct messages and the people directory.',
+  schedule: 'Professor availability, consultation requests and the academic calendar.',
+  cases: 'File a concern and follow each reply and milestone.',
+  evaluations: 'Answer faculty evaluations. Authorized staff run them and read the summaries.',
+  records: 'Standing, offense and restriction records, plus analytics, for authorized roles.',
   admin: 'Role configuration, moderation and system monitoring.',
 };
 

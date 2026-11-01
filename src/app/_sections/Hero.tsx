@@ -10,9 +10,9 @@ export function Hero() {
     <div className="wrap hero__grid">
       <div className="hero__copy">
         <h1 className="hero__title">
-          {'Your Access to the College of Computer Studies.'.split(' ').map((word, index) => <Fragment key={index}>{index > 0 && ' '}<span className="hero__word" style={{ '--i': index } as React.CSSProperties}>{word}</span></Fragment>)}
+          {'Your access to the College of Computer Studies.'.split(' ').map((word, index) => <Fragment key={index}>{index > 0 && ' '}<span className="hero__word" style={{ '--i': index } as React.CSSProperties}>{word}</span></Fragment>)}
         </h1>
-        <p className="hero__lead hero-in" style={{ '--i': 9 } as React.CSSProperties}>Forums, consultations and confidential concern reporting for QCU BSIT, BSCS and BSIS students and faculty.</p>
+        <p className="hero__lead hero-in" style={{ '--i': 9 } as React.CSSProperties}>Join your program forum and book professors with one QCU account. Concerns go to the right office in private.</p>
         <div className="hero__actions hero-in" style={{ '--i': 11 } as React.CSSProperties}>
           <Button href={signIn} size="lg" iconEnd="arrow-up-right">Sign in</Button>
           <Button href={register} size="lg" variant="secondary">Create account</Button>
@@ -20,7 +20,7 @@ export function Hero() {
       </div>
       <div className="hero__visual hero-in hero-in--panel" style={{ '--i': 4 } as React.CSSProperties}>
         <div className="frame">
-          {/* The one render: a subtle backdrop behind the glass cards. */}
+          {/* The one render on the page, behind the glass cards. */}
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img className="frame__art" src={typeof linkedC === 'string' ? linkedC : (linkedC as { src: string }).src} width={imagery['linked-c-liquid-glass'].width} height={imagery['linked-c-liquid-glass'].height} alt="" loading="eager" decoding="async" />
           <div className="frame__glass frame__glass--forum">
