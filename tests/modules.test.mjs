@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { readFileSync, existsSync, readdirSync } from 'node:fs';
+import { readFileSync, readdirSync } from 'node:fs';
 import { join } from 'node:path';
 
 const fixture = JSON.parse(readFileSync('src/data/doc003.json', 'utf8'));
@@ -59,16 +59,10 @@ for (const path of pages) {
       else assert.equal(url.pathname.replace(/\/$/, ''), new URL(entry[1]).pathname.replace(/\/$/, ''), href);
     }
   });
-  test(`${path}: every image has dimensions/alt and its exported asset exists`, () => {
+  test(`${path}: uses no picture assets`, () => {
     const html = readFileSync(path, 'utf8');
-    const images = [...html.matchAll(/<img\b[^>]+>/g)];
-    assert.ok(images.length <= 1, 'imagery stays minimal');
-    for (const [image] of images) {
-      for (const attribute of ['width', 'height', 'alt', 'src']) assert.match(image, new RegExp(`\\b${attribute}="[^"]*"`));
-      const src = decode(image.match(/\bsrc="([^"]+)"/)[1]);
-      assert.ok(src.startsWith('/'), src);
-      assert.ok(existsSync(join('out', src)), src);
-    }
+    assert.equal([...html.matchAll(/<img\b[^>]+>/g)].length, 0, 'no <img> elements');
+    assert.doesNotMatch(html, /\.webp\b|\/imagery\//i, 'no generated renders');
   });
   test(`${path}: all 58 modules have the correct owning-site destination`, () => {
     const html = readFileSync(path, 'utf8');

@@ -1,7 +1,6 @@
 import { Fragment } from 'react';
-import { Avatar, Badge, Button, ForumCard, imagery } from '@meetingat10/design-system/react';
+import { Avatar, Badge, Button, ForumCard } from '@meetingat10/design-system/react';
 import { sites } from '../../lib/sites';
-import linkedC from '@meetingat10/design-system/assets/imagery/linked-c-liquid-glass.webp';
 import { register, signIn } from './site-list';
 
 export function Hero() {
@@ -20,9 +19,6 @@ export function Hero() {
       </div>
       <div className="hero__visual hero-in hero-in--panel" style={{ '--i': 4 } as React.CSSProperties}>
         <div className="frame">
-          {/* The one render on the page, behind the glass cards. */}
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img className="frame__art" src={typeof linkedC === 'string' ? linkedC : (linkedC as { src: string }).src} width={imagery['linked-c-liquid-glass'].width} height={imagery['linked-c-liquid-glass'].height} alt="" loading="eager" decoding="async" />
           <div className="frame__glass frame__glass--forum">
             <ForumCard topic="Thesis" title="Looking for a thesis adviser for the IS track" author="Paolo Dizon" replies={6} status="Open discussion" href={`${sites.forums}/feed`} actionLabel="Join the thread" />
           </div>

@@ -34,9 +34,9 @@ python3 -m http.server 4173 --directory out
 
 The seven application sites are Home, Forums, Schedule, Cases, Evaluations, Records and Admin. Each module links to its owning site. These destinations follow `accs-system/docs/deltas/2026-11-01-subdomain-sites.md`; opening a site does not grant permission to its modules.
 
-## Design system and imagery
+## Design system
 
-The Office Hours components provide the navigation, forms, timetable and motion. The hero uses one WebP render from the pinned package, and Next.js fingerprints it into the static export. Image dimensions come from the package's `imagery` manifest, and the decorative image has empty alt text. No other page uses imagery. The ACCS wordmark is the door plate.
+The Office Hours components provide the navigation, forms, timetable and motion. The pages use no picture assets: the hero is built from live components (a forum card and a consultation chip). The ACCS wordmark is the door plate.
 
 ## Build-time URLs
 
