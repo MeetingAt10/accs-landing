@@ -137,10 +137,10 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--lp-cobalt); out
 .eco__count strong { font: 800 1.5rem var(--ds-font-family-display); letter-spacing: -.02em; }
 .eco__modules { width: 100%; max-height: 260px; overflow-y: auto; margin: 20px 0 0; padding: 0; list-style: none; box-shadow: 0 -1px 0 var(--lp-hair-2); }
 .eco__modules li { box-shadow: 0 1px 0 var(--lp-hair); }
-.eco__modules article { display: grid; grid-template-columns: 64px minmax(0, 1fr); column-gap: 8px; padding-block: 8px; font-size: .85rem; }
+.eco__modules article { display: grid; grid-template-columns: minmax(0, 1fr); padding-block: 8px; font-size: .85rem; }
 .eco__modules article a { color: var(--lp-ink); font-weight: 600; text-decoration: none; }
 .eco__modules article a:hover { color: var(--lp-cobalt); text-decoration: underline; }
-.eco__modules small { grid-column: 2; color: var(--lp-ink-2); font-size: .72rem; }
+.eco__modules small { color: var(--lp-ink-2); font-size: .72rem; }
 .window { min-width: 0; border-radius: 20px; background: var(--lp-paper); box-shadow: var(--lp-shadow-up); overflow: hidden; }
 .window__bar { padding: 12px 16px; color: var(--lp-ink-2); font-size: .8rem; font-weight: 500; background: var(--lp-sheet); box-shadow: 0 1px 0 var(--lp-hair); }
 .window__body { padding: clamp(12px, 2vw, 24px); overflow-x: auto; min-height: 340px; }
@@ -328,14 +328,13 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--lp-cobalt); out
 .inventory-role__header > span { color: var(--lp-ink-2); font-size: .85rem; white-space: nowrap; }
 .module-row { display: grid; gap: 6px 24px; min-width: 0; padding-block: 16px; box-shadow: 0 1px 0 var(--lp-hair-2); transition: background .25s; }
 .module-row:hover { background: color-mix(in srgb, var(--lp-ink) 3%, transparent); }
-.module-code { font: 500 .75rem/1.8 var(--ds-font-family-mono); letter-spacing: .015em; color: var(--lp-ink-2); }
 .module-row h3 { margin: 0; font: 700 1rem/1.35 var(--ds-font-family-display); letter-spacing: -.02em; }
 .module-row p { margin: 0; color: var(--lp-ink-2); font-size: .85rem; line-height: 1.6; }
 .module-row__main { display: grid; gap: 4px; min-width: 0; }
 .module-row__link { display: inline-flex; align-items: center; min-height: 44px; color: var(--ds-action-default); font-weight: 600; font-size: .85rem; }
 .inventory-source { box-shadow: 0 -1px 0 var(--lp-hair-2); margin-top: 48px; padding-top: 24px; }
 @media (min-width: 900px) {
-  .module-row { grid-template-columns: 76px minmax(0, 1.2fr) minmax(0, 1fr) 120px; align-items: start; }
+  .module-row { grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr) 120px; align-items: start; }
   .module-row__link { justify-self: end; margin-block: -10px; }
 }
 @media (min-width: 1100px) {

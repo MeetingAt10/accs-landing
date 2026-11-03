@@ -38,10 +38,15 @@ for (const path of pages) {
   test(`${path}: all module IDs, exact names and roles render as HTML`, () => {
     const text = textOnly(readFileSync(path, 'utf8'));
     for (const item of fixture.modules) {
-      assert.ok(text.includes(item.id), item.id);
       assert.ok(text.includes(item.name), item.name);
     }
     for (const role of expectedRoles) assert.ok(text.includes(role), role);
+  });
+  test(`${path}: visible copy has no document codes or module IDs`, () => {
+    const text = textOnly(readFileSync(path, 'utf8'));
+    assert.doesNotMatch(text, /DOC0\d\d/);
+    assert.doesNotMatch(text, /\b(ALL|STU|ORG|PRO|STF|CHR|DEAN|GUD|OSAS|PRES|ADM)-\d{2}\b/);
+    assert.ok(!text.includes('.xlsm'));
   });
   test(`${path}: links use configured hosts, owning-site routes and valid anchors`, () => {
     const html = readFileSync(path, 'utf8');

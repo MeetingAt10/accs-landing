@@ -3,7 +3,7 @@ import { Avatar, AvatarGroup, Badge, Icon, RoleBadge, Tile } from '@meetingat10/
 export function FeaturesSection() {
   return <section id="features" className="band" aria-labelledby="features-title">
     <div className="wrap">
-      <div className="band__head"><h2 id="features-title">Tools for how the college runs</h2><p>These six functions from the DOC003 inventory are shared across the ACCS sites.</p></div>
+      <div className="band__head"><h2 id="features-title">Tools for how the college runs</h2><p>These six functions are shared across every ACCS site.</p></div>
       <div className="feat">
         <article className="feat__role">
           <h3>A dashboard for your role</h3>

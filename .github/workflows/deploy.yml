@@ -56,7 +56,7 @@ jobs:
         env:
           NEXT_PUBLIC_SITE_URL: ${{ steps.stack.outputs.url }}
 
-      - name: DOC003 compliance
+      - name: Module coverage tests
         run: npm test
 
       - name: Upload

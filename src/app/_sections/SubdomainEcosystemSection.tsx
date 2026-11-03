@@ -124,17 +124,17 @@ const previews: Record<ModuleSite, { path: string; node: ReactNode }> = {
 export function SubdomainEcosystemSection() {
   return <section id="sites" className="band band--sheet" aria-labelledby="sites-title">
     <div className="wrap">
-      <div className="band__head"><h2 id="sites-title">Seven sites on one college account</h2><p>Each site runs part of the 58 DOC003 modules. Choose a tab to try a working preview, then open the site.</p></div>
+      <div className="band__head"><h2 id="sites-title">Seven sites on one college account</h2><p>Each site runs part of the 58 ACCS modules. Choose a tab to try a working preview, then open the site.</p></div>
       <Tabs defaultSelectedKey="portal" className="eco">
         <TabList aria-label="ACCS sites" className="eco__tabs">{appSites.map(site => <Tab key={site.key} id={site.key} icon={site.icon}>{site.name}</Tab>)}</TabList>
         {appSites.map(site => <TabPanel key={site.key} id={site.key} shouldForceMount className="eco__panel">
           <div className="eco__info">
             <h3>{site.name}{site.access && <Badge tone={site.key === 'admin' ? 'warning' : 'info'} form={site.key === 'admin' || site.key === 'records' ? 'restricted' : 'solid'}>{site.access}</Badge>}</h3>
             <p>{site.blurb}</p>
-            <p className="eco__count" data-site-modules={site.key} data-value={site.moduleCount}><strong><CountUp value={site.moduleCount} /></strong> {site.moduleCount === 1 ? 'module' : 'modules'} from DOC003</p>
+            <p className="eco__count" data-site-modules={site.key} data-value={site.moduleCount}><strong><CountUp value={site.moduleCount} /></strong> {site.moduleCount === 1 ? 'module' : 'modules'}</p>
             <a className="text-link" href={site.href}>{site.access ? `Sign in to open ${site.name}` : `Open ${site.name}`}<Icon name="arrow-up-right" size={16} /></a>
             <ul className="eco__modules" aria-label={`${site.name} modules`}>{modules.filter(module => module.site === site.key).map(module => <li key={module.id}><article data-module={module.id} data-site={module.site}>
-              <span className="mono">{module.id}</span><a href={module.href}>{module.name}</a><small>{module.role}</small>
+              <a href={module.href}>{module.name}</a><small>{module.role}</small>
             </article></li>)}</ul>
           </div>
           <Window path={previews[site.key].path}>{previews[site.key].node}</Window>

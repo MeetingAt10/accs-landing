@@ -1,6 +1,6 @@
 # ACCS landing
 
-Public landing site and DOC003 module inventory for ACCS, the live workspace for the QCU College of Computer Studies. The site uses Next.js 16, React 19 and `@meetingat10/design-system` pinned to GitHub tag `v1.2.1`. It exports static files to `out/`.
+Public landing site and module list for ACCS, the live workspace for the QCU College of Computer Studies. The site uses Next.js 16, React 19 and `@meetingat10/design-system` pinned to GitHub tag `v1.2.1`. It exports static files to `out/`.
 
 ## Run and verify
 
@@ -30,7 +30,7 @@ python3 -m http.server 4173 --directory out
 - `/`: landing page with site previews, features, the concern escalation path, workflow, programs, a forum thread list and upcoming events.
 - `/modules/`: all 58 modules as rows grouped under the 11 source role labels, with a role index and a filter by owning application site.
 
-`src/data/doc003.json` is the checked-in DOC003 source fixture. `src/data/modules.ts` derives the rows, role counts and destinations from it. The ten operational roles share the five All users modules. The exported HTML contains every role section and module row.
+`src/data/doc003.json` is the checked-in module fixture. Visible copy carries no document codes or module IDs; IDs stay only as `id`/`data-module` attributes for tests. `src/data/modules.ts` derives the rows, role counts and destinations from it. The ten operational roles share the five All users modules. The exported HTML contains every role section and module row.
 
 The seven application sites are Home, Forums, Schedule, Cases, Evaluations, Records and Admin. Each module links to its owning site. These destinations follow `accs-system/docs/deltas/2026-11-01-subdomain-sites.md`; opening a site does not grant permission to its modules.
 
