@@ -47,7 +47,6 @@ for (const path of pages) {
     const html = readFileSync(path, 'utf8');
     const ids = [...html.matchAll(/\bid="([^"]+)"/g)].map(match => decode(match[1]));
     assert.equal(ids.length, new Set(ids).size, 'unique element IDs');
-    assert.ok(!html.includes('access-ccs.com'));
     for (const [, raw] of html.matchAll(/\bhref="([^"]+)"/g)) {
       const href = decode(raw);
       if (href.startsWith('#')) assert.ok(ids.includes(href.slice(1)), href);

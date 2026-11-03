@@ -22,7 +22,7 @@ const jetbrainsMono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL ?? "https://d1o7nnm2soozyn.cloudfront.net"),
+  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL ?? "https://access-ccs.com"),
   title: "ACCS for the QCU College of Computer Studies",
   description:
     "ACCS is the workspace for QCU BSIT, BSCS and BSIS students and faculty. Join forums, book consultations and send confidential reports with one sign-in.",
