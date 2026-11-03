@@ -14,7 +14,7 @@ permissions:
 
 env:
   AWS_REGION: ap-southeast-1
-  STACK: accs-dev
+  STACK: accs-prod # the landing site exists only in prod (access-ccs.com)
   SITE: Landing
 
 jobs:
