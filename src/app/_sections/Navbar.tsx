@@ -2,7 +2,7 @@
 import Link from 'next/link';
 import { useEffect, useRef, useState } from 'react';
 import { Button, DoorPlate, Icon } from '@meetingat10/design-system/react';
-import { register, signIn } from './site-list';
+import { signIn } from './site-list';
 
 const links = [
   { label: 'Sites', href: '/#sites' }, { label: 'Features', href: '/#features' }, { label: 'Guidance', href: '/#guidance' },
@@ -23,9 +23,7 @@ export function Navbar() {
       <Link className="nav__brand" href="/" aria-label="ACCS home"><DoorPlate /></Link>
       <nav className="nav__links" aria-label="Primary">{links.map(link => <a key={link.href} href={link.href}>{link.label}</a>)}</nav>
       <div className="nav__actions">
-        <Button href={signIn} variant="secondary" size="sm">Sign in</Button>
-        <Button href={register} size="sm">Create account</Button>
-      </div>
+        <Button href={signIn} variant="secondary" size="sm">Sign in</Button>      </div>
       <button type="button" className="nav__toggle" aria-expanded={open} aria-controls="mobile-menu" aria-label={open ? 'Close menu' : 'Open menu'} onClick={() => setOpen(!open)}>
         <Icon name={open ? 'x' : 'list'} size={24} />
       </button>
@@ -34,9 +32,7 @@ export function Navbar() {
     <div id="mobile-menu" className="nav__menu" inert={!open}>
       <nav aria-label="Mobile">{links.map((link, index) => <a key={link.href} href={link.href} style={{ '--i': index } as React.CSSProperties} onClick={() => setOpen(false)}>{link.label}</a>)}</nav>
       <div className="nav__menu-actions">
-        <Button href={signIn} variant="secondary" block>Sign in</Button>
-        <Button href={register} block>Create account</Button>
-      </div>
+        <Button href={signIn} variant="secondary" block>Sign in</Button>      </div>
     </div>
   </header>;
 }

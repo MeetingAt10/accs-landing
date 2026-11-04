@@ -10,7 +10,7 @@ const pages = ['out/index.html', 'out/modules/index.html'];
 const expectedRoles = ['All users', 'Student', 'CCS Student Organization', 'Professor', 'CCS Staff', 'Program Chair', 'Dean', 'QCU Administrator / Moderator', 'Guidance', 'OSAS', 'Office of the University President'];
 const configured = Object.fromEntries([...readFileSync('src/lib/sites.ts', 'utf8').matchAll(/(\w+):\s*process\.env\.(NEXT_PUBLIC_\w+)\s*\?\?\s*['"]([^'"]+)['"]/g)].map(([, key, env, fallback]) => [key, process.env[env] ?? fallback]));
 const allowed = {
-  portal: ['/sign-in', '/register', '/home', '/notifications', '/assistant', '/help', '/standing', '/profile'],
+  portal: ['/sign-in', '/home', '/notifications', '/assistant', '/help', '/standing', '/profile'],
   forums: ['/feed', '/spaces', '/organizations', '/messages', '/directory'],
   schedule: ['/calendar', '/consultations'],
   cases: ['/reports', '/cases'],
@@ -97,7 +97,7 @@ test('home presents the seven sites, the boundary, the escalation path and no di
   for (const title of ['ACCS Home', 'Forums', 'Schedule', 'Cases', 'Evaluations', 'Records', 'Admin']) assert.ok(text.includes(title), title);
   assert.ok(text.includes('Community access never implies report access.'));
   assert.match(text, /Adviser.*Program Chair.*Dean.*Guidance.*OSAS.*President's Office/);
-  assert.ok(text.includes('Sign in') && text.includes('Create account'));
+  assert.ok(text.includes('Sign in') && !text.includes('Create account'));
   assert.doesNotMatch(text, /sample data|synthetic|prototype|simulated|\bdemo\b|not an official/i);
 });
 const walk = dir => readdirSync(dir, { withFileTypes: true }).flatMap(entry => entry.isDirectory() ? walk(join(dir, entry.name)) : entry.name.endsWith('.html') ? [join(dir, entry.name)] : []);
