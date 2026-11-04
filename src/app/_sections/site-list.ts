@@ -3,7 +3,6 @@ import { isOpenSite, modules, moduleSites, signInUrl, type ModuleSite } from '..
 import { sites } from '../../lib/sites';
 
 export const signIn = signInUrl;
-export const register = `${sites.portal}/register`;
 
 const icons: Record<ModuleSite, IconName> = { portal: 'house', forums: 'chats', schedule: 'calendar-dots', cases: 'flag', evaluations: 'list-checks', records: 'archive', admin: 'gear' };
 const access: Partial<Record<ModuleSite, string>> = { cases: 'Sign-in required', evaluations: 'Sign-in required', records: 'Staff sign-in required', admin: 'Admin role' };
