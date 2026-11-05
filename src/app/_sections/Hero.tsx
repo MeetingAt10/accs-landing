@@ -1,7 +1,7 @@
 import { Fragment } from 'react';
 import { Avatar, Badge, Button, ForumCard } from '@meetingat10/design-system/react';
 import { sites } from '../../lib/sites';
-import { register, signIn } from './site-list';
+import { signIn } from './site-list';
 
 export function Hero() {
   return <section className="hero">
@@ -11,11 +11,9 @@ export function Hero() {
         <h1 className="hero__title">
           {'Your access to the College of Computer Studies.'.split(' ').map((word, index) => <Fragment key={index}>{index > 0 && ' '}<span className="hero__word" style={{ '--i': index } as React.CSSProperties}>{word}</span></Fragment>)}
         </h1>
-        <p className="hero__lead hero-in" style={{ '--i': 9 } as React.CSSProperties}>Join your program forum and book professors with one QCU account. Concerns go to the right office in private.</p>
+        <p className="hero__lead hero-in" style={{ '--i': 9 } as React.CSSProperties}>Use your program forum, book professors, and send concerns to the right office in private. The CCS secretary provides student accounts.</p>
         <div className="hero__actions hero-in" style={{ '--i': 11 } as React.CSSProperties}>
-          <Button href={signIn} size="lg" iconEnd="arrow-up-right">Sign in</Button>
-          <Button href={register} size="lg" variant="secondary">Create account</Button>
-        </div>
+          <Button href={signIn} size="lg" iconEnd="arrow-up-right">Sign in</Button>        </div>
       </div>
       <div className="hero__visual hero-in hero-in--panel" style={{ '--i': 4 } as React.CSSProperties}>
         <div className="frame">
