@@ -9,15 +9,8 @@ const textOnly = html => decode(html.replace(/<script\b[^>]*>[\s\S]*?<\/script>/
 const pages = ['out/index.html', 'out/modules/index.html'];
 const expectedRoles = ['All users', 'Student', 'CCS Student Organization', 'Professor', 'CCS Staff', 'Program Chair', 'Dean', 'QCU Administrator / Moderator', 'Guidance', 'OSAS', 'Office of the University President'];
 const configured = Object.fromEntries([...readFileSync('src/lib/sites.ts', 'utf8').matchAll(/(\w+):\s*process\.env\.(NEXT_PUBLIC_\w+)\s*\?\?\s*['"]([^'"]+)['"]/g)].map(([, key, env, fallback]) => [key, process.env[env] ?? fallback]));
-const allowed = {
-  portal: ['/sign-in', '/home', '/notifications', '/assistant', '/help', '/standing', '/profile'],
-  forums: ['/feed', '/spaces', '/organizations', '/messages', '/directory'],
-  schedule: ['/calendar', '/consultations'],
-  cases: ['/reports', '/cases'],
-  evaluations: ['/evaluations'],
-  records: ['/records', '/restrictions', '/analytics'],
-  admin: ['/admin'],
-};
+const portalPaths = ['/sign-in', '/home', '/notifications', '/assistant', '/help', '/standing', '/profile', '/feed', '/spaces', '/organizations', '/messages', '/directory', '/calendar', '/consultations'];
+const under = (path, route) => path === route || path.startsWith(`${route}/`);
 const ownership = {
   portal: 'ALL-01 ALL-04 ALL-05 STU-11 STU-12 STF-01 CHR-01 DEAN-01',
   forums: 'ALL-02 ALL-03 STU-01 STU-02 STU-03 ORG-01 ORG-02 PRO-01 PRO-02 PRO-03 CHR-06 DEAN-06 GUD-05 OSAS-04',
@@ -48,7 +41,7 @@ for (const path of pages) {
     assert.doesNotMatch(text, /\b(ALL|STU|ORG|PRO|STF|CHR|DEAN|GUD|OSAS|PRES|ADM)-\d{2}\b/);
     assert.ok(!text.includes('.xlsm'));
   });
-  test(`${path}: links use configured hosts, owning-site routes and valid anchors`, () => {
+  test(`${path}: links use configured hosts, public portal routes and valid anchors`, () => {
     const html = readFileSync(path, 'utf8');
     const ids = [...html.matchAll(/\bid="([^"]+)"/g)].map(match => decode(match[1]));
     assert.equal(ids.length, new Set(ids).size, 'unique element IDs');
@@ -59,7 +52,7 @@ for (const path of pages) {
       const url = new URL(href);
       const entry = Object.entries(configured).find(([, origin]) => url.origin === new URL(origin).origin);
       assert.ok(entry, href);
-      if (allowed[entry[0]]) assert.ok(allowed[entry[0]].some(route => url.pathname === route || url.pathname.startsWith(`${route}/`)), href);
+      if (entry[0] === 'portal') assert.ok(portalPaths.some(route => under(url.pathname, route)), href);
       else assert.equal(url.pathname.replace(/\/$/, ''), new URL(entry[1]).pathname.replace(/\/$/, ''), href);
     }
   });
@@ -76,7 +69,7 @@ for (const path of pages) {
         assert.ok(card, id);
         assert.ok(card.includes(`data-site="${site}"`), `${id}: ${site}`);
         const open = ['portal', 'forums', 'schedule'].includes(site);
-        assert.ok(card.includes(`href="${open ? configured[site] : `${configured.portal}/sign-in`}`), `${id}: ${site}`);
+        assert.ok(card.includes(`href="${open ? configured.portal : `${configured.portal}/sign-in`}`), `${id}: ${site}`);
       }
     }
   });
@@ -92,7 +85,7 @@ test('home shows each site module count from source and the three named programs
   assert.equal(total, fixture.modules.length);
   for (const program of ['BSIT', 'BSCS', 'BSIS']) assert.ok(textOnly(html).includes(program));
 });
-test('home presents the seven sites, the boundary, the escalation path and no disclaimers', () => {
+test('home presents the seven workspaces, the boundary, the escalation path and no disclaimers', () => {
   const text = textOnly(readFileSync(pages[0], 'utf8'));
   for (const title of ['ACCS Home', 'Forums', 'Schedule', 'Cases', 'Evaluations', 'Records', 'Admin']) assert.ok(text.includes(title), title);
   assert.ok(text.includes('Community access never implies report access.'));
@@ -101,12 +94,13 @@ test('home presents the seven sites, the boundary, the escalation path and no di
   assert.doesNotMatch(text, /sample data|synthetic|prototype|simulated|\bdemo\b|not an official/i);
 });
 const walk = dir => readdirSync(dir, { withFileTypes: true }).flatMap(entry => entry.isDirectory() ? walk(join(dir, entry.name)) : entry.name.endsWith('.html') ? [join(dir, entry.name)] : []);
-test('static export never links public visitors to the admin, records, cases or evaluations origins', () => {
-  const blocked = ['admin', 'records', 'cases', 'evaluations'].map(key => new URL(configured[key]).origin);
+test('static export never links public visitors to the admin, records, cases or evaluations paths', () => {
+  const blocked = ['/admin', '/records', '/restrictions', '/analytics', '/reports', '/cases', '/evaluations'];
+  const portal = new URL(configured.portal).origin;
   for (const file of walk('out')) {
     for (const [, raw] of readFileSync(file, 'utf8').matchAll(/\bhref="([^"]+)"/g)) {
       const href = decode(raw);
-      if (/^https?:/.test(href)) assert.ok(!blocked.includes(new URL(href).origin), `${file}: ${href}`);
+      if (/^https?:/.test(href) && new URL(href).origin === portal) assert.ok(!blocked.some(route => under(new URL(href).pathname, route)), `${file}: ${href}`);
     }
   }
 });

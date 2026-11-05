@@ -46,12 +46,6 @@ The Office Hours components provide the navigation, forms, timetable and motion.
 |---|---|
 | `NEXT_PUBLIC_LANDING_URL` | https://access-ccs.com |
 | `NEXT_PUBLIC_PORTAL_URL` | https://portal.access-ccs.com |
-| `NEXT_PUBLIC_FORUMS_URL` | https://forums.access-ccs.com |
-| `NEXT_PUBLIC_SCHEDULE_URL` | https://schedule.access-ccs.com |
-| `NEXT_PUBLIC_CASES_URL` | https://cases.access-ccs.com |
-| `NEXT_PUBLIC_EVALUATIONS_URL` | https://evaluations.access-ccs.com |
-| `NEXT_PUBLIC_RECORDS_URL` | https://records.access-ccs.com |
-| `NEXT_PUBLIC_ADMIN_URL` | https://admin.access-ccs.com |
 | `NEXT_PUBLIC_DESIGN_URL` | https://design.access-ccs.com |
 | `NEXT_PUBLIC_MEETING_URL` | https://team.access-ccs.com |
 

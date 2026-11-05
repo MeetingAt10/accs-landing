@@ -3,7 +3,7 @@ import { CountUp } from '@meetingat10/design-system/react';
 import { InventoryFilter } from '../_components/inventory-filter';
 import { modules, roles } from '../../data/modules';
 
-export const metadata: Metadata = { title: 'Modules | ACCS', description: 'All 58 ACCS modules with the roles they serve, what each one does and the site that runs it.' };
+export const metadata: Metadata = { title: 'Modules | ACCS', description: 'All 58 ACCS modules with the roles they serve, what each one does and the workspace that runs it.' };
 
 export default function ModulesPage() {
   return <main id="main" tabIndex={-1}>
@@ -14,6 +14,6 @@ export default function ModulesPage() {
       </div>
     </header>
     <InventoryFilter />
-    <div className="wrap"><p className="caption inventory-source">ACCS Home, Forums and Schedule modules open their site. The rest open through sign-in, and your role decides what you can use.</p></div>
+    <div className="wrap"><p className="caption inventory-source">ACCS Home, Forums and Schedule modules open their workspace. The rest open through sign-in, and your role decides what you can use.</p></div>
   </main>;
 }
