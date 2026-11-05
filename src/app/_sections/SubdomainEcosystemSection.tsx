@@ -66,7 +66,7 @@ function PortalPreview() {
   </div>;
 }
 function ForumsPreview() {
-  const href = `${sites.forums}/feed`;
+  const href = `${sites.portal}/feed`;
   return <div className="pv pv--stack">
     <ForumCard topic="Thesis" title="Looking for a thesis adviser for the IS track" excerpt="Which faculty are taking advisees this term?" author="Paolo Dizon" replies={6} status="Open discussion" href={href} actionLabel="Open thread" />
     <ForumCard topic="BSCS" title="Study group for Algorithms midterm" excerpt="Library 2F, Thursday after class." author="Ana Villanueva" replies={11} status="Open discussion" href={href} actionLabel="Open thread" />
@@ -124,7 +124,7 @@ const previews: Record<ModuleSite, { path: string; node: ReactNode }> = {
 export function SubdomainEcosystemSection() {
   return <section id="sites" className="band band--sheet" aria-labelledby="sites-title">
     <div className="wrap">
-      <div className="band__head"><h2 id="sites-title">Seven sites on one college account</h2><p>Each site runs part of the 58 ACCS modules. Choose a tab to try a working preview, then open the site.</p></div>
+      <div className="band__head"><h2 id="sites-title">Seven workspaces on one college account</h2><p>Each workspace runs part of the 58 ACCS modules. Choose a tab to try a working preview, then open it.</p></div>
       <Tabs defaultSelectedKey="portal" className="eco">
         <TabList aria-label="ACCS sites" className="eco__tabs">{appSites.map(site => <Tab key={site.key} id={site.key} icon={site.icon}>{site.name}</Tab>)}</TabList>
         {appSites.map(site => <TabPanel key={site.key} id={site.key} shouldForceMount className="eco__panel">

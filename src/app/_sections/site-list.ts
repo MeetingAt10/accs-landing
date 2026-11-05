@@ -7,7 +7,7 @@ export const signIn = signInUrl;
 const icons: Record<ModuleSite, IconName> = { portal: 'house', forums: 'chats', schedule: 'calendar-dots', cases: 'flag', evaluations: 'list-checks', records: 'archive', admin: 'gear' };
 const access: Partial<Record<ModuleSite, string>> = { cases: 'Sign-in required', evaluations: 'Sign-in required', records: 'Staff sign-in required', admin: 'Admin role' };
 const blurbs: Record<ModuleSite, string> = {
-  portal: 'Sign in once and land on the dashboard for your role, with links to the sites you can use.',
+  portal: 'Sign in once and land on the dashboard for your role, with links to the workspaces you can use.',
   forums: 'College discussions, organization spaces, direct messages and the people directory.',
   schedule: 'Professor availability, consultation requests and the academic calendar.',
   cases: 'File a concern and follow each reply and milestone.',
@@ -16,10 +16,10 @@ const blurbs: Record<ModuleSite, string> = {
   admin: 'Role configuration, moderation and system monitoring.',
 };
 
-/** The seven app sites, in navigation order, with DOC003-derived module counts. */
+/** The seven app workspaces, in navigation order, with DOC003-derived module counts. */
 export const appSites = (Object.keys(moduleSites) as ModuleSite[]).map(key => ({
   key, name: moduleSites[key].name, icon: icons[key], blurb: blurbs[key],
   access: access[key],
-  href: key === 'portal' ? signInUrl : isOpenSite(key) ? `${sites[key]}${moduleSites[key].path}` : signInUrl,
+  href: key === 'portal' ? signInUrl : isOpenSite(key) ? `${sites.portal}${moduleSites[key].path}` : signInUrl,
   moduleCount: modules.filter(module => module.site === key).length,
 }));

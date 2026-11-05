@@ -1,7 +1,7 @@
 import { Avatar, AvatarGroup, Icon } from '@meetingat10/design-system/react';
 import { sites } from '../../lib/sites';
 
-const href = `${sites.forums}/feed`;
+const href = `${sites.portal}/feed`;
 const threads = [
   { topic: 'Thesis', title: 'Looking for a thesis adviser for the IS track', excerpt: 'Which faculty are taking advisees this term?', author: 'Paolo Dizon', replies: 6 },
   { topic: 'BSCS', title: 'Study group for the Algorithms midterm', excerpt: 'Library 2F, Thursday after class. Bring practice sets.', author: 'Ana Villanueva', replies: 11 },

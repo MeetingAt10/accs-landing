@@ -18,7 +18,7 @@ export function Hero() {
       <div className="hero__visual hero-in hero-in--panel" style={{ '--i': 4 } as React.CSSProperties}>
         <div className="frame">
           <div className="frame__glass frame__glass--forum">
-            <ForumCard topic="Thesis" title="Looking for a thesis adviser for the IS track" author="Paolo Dizon" replies={6} status="Open discussion" href={`${sites.forums}/feed`} actionLabel="Join the thread" />
+            <ForumCard topic="Thesis" title="Looking for a thesis adviser for the IS track" author="Paolo Dizon" replies={6} status="Open discussion" href={`${sites.portal}/feed`} actionLabel="Join the thread" />
           </div>
           <div className="frame__glass frame__glass--consult">
             <Avatar name="Liza Manalastas" lane="consult" size={36} />
