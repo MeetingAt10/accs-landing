@@ -104,3 +104,8 @@ test('static export never links public visitors to the admin, records, cases or 
     }
   }
 });
+test('the site does not use the design system', () => {
+  const pkg = JSON.parse(readFileSync('package.json', 'utf8'));
+  assert.ok(!('@meetingat10/design-system' in pkg.dependencies));
+  for (const path of pages) assert.doesNotMatch(readFileSync(path, 'utf8'), /class="[^"]*\bds-/, path);
+});
