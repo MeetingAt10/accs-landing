@@ -48,7 +48,7 @@ jobs:
         env:
           NEXT_PUBLIC_SITE_URL: ${{ steps.stack.outputs.url }}
 
-      - name: Module coverage tests
+      - name: Content tests
         run: npm test
 
       - name: Upload
