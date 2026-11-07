@@ -1,6 +1,6 @@
 # ACCS landing
 
-Public landing site and module list for ACCS, the live workspace for the QCU College of Computer Studies. The site uses Next.js 16, React 19 and `@meetingat10/design-system` pinned to GitHub tag `v1.2.1`. It exports static files to `out/`.
+Public landing site and module list for ACCS, the live workspace for the QCU College of Computer Studies. The site uses Next.js 16, React 19 and `@meetingat10/design-system` pinned to GitHub tag `v2.0.0`. It exports static files to `out/`. A rebuild of the site lives on the `backup/redesign-v2-20261107` branch and is not merged.
 
 ## Run and verify
 
@@ -32,7 +32,7 @@ python3 -m http.server 4173 --directory out
 
 `src/data/doc003.json` is the checked-in module fixture. Visible copy carries no document codes or module IDs; IDs stay only as `id`/`data-module` attributes for tests. `src/data/modules.ts` derives the rows, role counts and destinations from it. The ten operational roles share the five All users modules. The exported HTML contains every role section and module row.
 
-The seven application sites are Home, Forums, Schedule, Cases, Evaluations, Records and Admin. Each module links to its owning site. These destinations follow `accs-system/docs/deltas/2026-11-01-subdomain-sites.md`; opening a site does not grant permission to its modules.
+The seven application workspaces are Home, Forums, Schedule, Cases, Evaluations, Records and Admin, all paths on the portal (`accs-system/docs/deltas/2026-11-05-one-portal-host.md`). Public modules link to their portal path; the rest link to sign-in. A link does not grant permission to a module.
 
 ## Design system
 
@@ -53,6 +53,8 @@ The Office Hours components provide the navigation, forms, timetable and motion.
 
 ## Deployment
 
-`.github/workflows/deploy.yml` runs on pushes to `main` and on manual dispatch. It installs the private design-system dependency with `DS_DEPLOY_KEY`, reads the `LandingBucket`, `LandingDistributionId` and `LandingUrl` outputs from the `accs-dev` CloudFormation stack in `ap-southeast-1`, builds the export, uploads `out/` to S3 and invalidates CloudFront. AWS access uses the repository's configured deployment secrets.
+`.github/workflows/deploy.yml` runs on pushes to `main` and `dev` and on manual dispatch. `main` deploys to `access-ccs.com` (stack `accs-prod`), `dev` to `dev.access-ccs.com` (stack `accs-dev`). It installs the private design-system dependency with `DS_DEPLOY_KEY`, reads the `Landing*` outputs and the portal, design and team URLs from the stack in `ap-southeast-1`, builds the export, uploads `out/` to S3 and invalidates CloudFront. AWS access uses the repository's configured deployment secrets.
 
-The deployed URL is the corresponding CloudFront default above. Custom domains remain a proposal.
+Links in the build point at the same environment's portal, design and team sites.
+
+The `dev` trigger, the stack choice by branch and the per-environment URLs are uncommitted edits to `deploy.yml`. The committed workflow runs on `main` only and deploys to `accs-prod`.
