@@ -49,6 +49,8 @@ The Office Hours components provide the navigation, forms, timetable and motion.
 | `NEXT_PUBLIC_DESIGN_URL` | https://design.access-ccs.com |
 | `NEXT_PUBLIC_MEETING_URL` | https://team.access-ccs.com |
 
+`NEXT_PUBLIC_GA_ID` is the Google Analytics measurement ID. Unset: no analytics script is rendered.
+
 `NEXT_PUBLIC_SITE_URL` sets `metadataBase` and defaults to the landing URL above. It is separate from `NEXT_PUBLIC_LANDING_URL`, which controls navigation links.
 
 ## Deployment
