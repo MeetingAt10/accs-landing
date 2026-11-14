@@ -50,6 +50,7 @@ for (const path of pages) {
       if (href.startsWith('#')) assert.ok(ids.includes(href.slice(1)), href);
       if (!/^https?:/.test(href)) continue;
       const url = new URL(href);
+      if (url.origin === 'https://www.googletagmanager.com') continue; // Next preloads the GA script as a <link href>; it is not a site link
       const entry = Object.entries(configured).find(([, origin]) => url.origin === new URL(origin).origin);
       assert.ok(entry, href);
       if (entry[0] === 'portal') assert.ok(portalPaths.some(route => under(url.pathname, route)), href);
