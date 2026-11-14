@@ -55,6 +55,7 @@ jobs:
       - run: npm run build
         env:
           NEXT_PUBLIC_SITE_URL: ${{ steps.stack.outputs.url }}
+          NEXT_PUBLIC_GA_ID: ${{ github.ref_name == 'main' && 'G-EX3ZJ1PNKF' || '' }} # only the prod build reports to GA
 
       - name: Module coverage tests
         run: npm test
