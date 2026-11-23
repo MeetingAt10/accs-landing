@@ -27,7 +27,7 @@ python3 -m http.server 4173 --directory out
 
 ## Content and routes
 
-- `/`: landing page with site previews, features, the concern escalation path, workflow, programs, a forum thread list and upcoming events.
+- `/`: landing page built from the Figma frame "10 Landing page": hero with a quick-start box, connected offices, one-account stats, four features, the five offices that handle concerns, how a request moves, and a sign-in call to action. The quick-start box sends visitors to the portal: concern words and the concern chips open `/reports/new`, booking words open `/consultations`, anything else opens sign-in with a redirect to `/search`. There is no sign-up: the CCS Secretary creates accounts, so every account link is Sign in.
 - `/modules/`: all 58 modules as rows grouped under the 11 source role labels, with a role index and a filter by owning application site.
 
 `src/data/doc003.json` is the checked-in module fixture. Visible copy carries no document codes or module IDs; IDs stay only as `id`/`data-module` attributes for tests. `src/data/modules.ts` derives the rows, role counts and destinations from it. The ten operational roles share the five All users modules. The exported HTML contains every role section and module row.
@@ -36,7 +36,7 @@ The seven application workspaces are Home, Forums, Schedule, Cases, Evaluations,
 
 ## Design system
 
-The Office Hours components provide the navigation, forms, timetable and motion. The pages use no picture assets: the hero is built from live components (a forum card and a consultation chip). The ACCS wordmark is the door plate.
+The `/modules` inventory uses the Office Hours components for its forms and motion. The landing page uses Poppins and Inter with the colours from the Figma frame (`globals.css`). Its icons, stars, horizon and rings are SVGs exported from Figma into `public/landing/` and drawn as CSS backgrounds, so the pages still render no `<img>` elements.
 
 ## Build-time URLs
 

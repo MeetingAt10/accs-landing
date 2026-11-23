@@ -18,7 +18,6 @@ const openSites: readonly ModuleSite[] = ['portal', 'forums', 'schedule'];
 export const isOpenSite = (site: ModuleSite) => openSites.includes(site);
 export const signInUrl = `${sites.portal}/sign-in`;
 export const roles: readonly string[] = inventory.roles;
-export const programs = ['BSIT', 'BSCS', 'BSIS'] as const;
 export const modules = inventory.modules.map(module => {
   const site = (Object.keys(moduleSites) as ModuleSite[]).find(key => moduleSites[key].ids.split(' ').includes(module.id));
   if (!site) throw new Error(`Module has no owning site: ${module.id}`);

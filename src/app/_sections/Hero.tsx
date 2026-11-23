@@ -1,32 +1,34 @@
-import { Fragment } from 'react';
-import { Avatar, Badge, Button, ForumCard } from '@meetingat10/design-system/react';
-import { sites } from '../../lib/sites';
-import { signIn } from './site-list';
+import { Asset } from '../_components/asset';
+import { HeroAsk } from '../_components/hero-ask';
+import { signInTo } from './site-list';
+
+const offices = [
+  { name: 'Adviser', icon: 'office-users' }, { name: 'Program Chair', icon: 'office-cases' }, { name: 'Dean', icon: 'office-shield' },
+  { name: 'Guidance', icon: 'office-heart' }, { name: 'OSAS', icon: 'office-forums' }, { name: 'Registrar', icon: 'office-evaluations' },
+];
+// Light beams in the sky: offset from the page centre, width and peak opacity from the Figma frame.
+const beams = [[-420, 2, .25], [-200, 1, .18], [190, 2, .22], [410, 1, .16], [0, 3, .12]] as const;
 
 export function Hero() {
-  return <section className="hero">
-    <div className="hero__ground" aria-hidden="true" />
-    <div className="wrap hero__grid">
-      <div className="hero__copy">
-        <h1 className="hero__title">
-          {'Your access to the College of Computer Studies.'.split(' ').map((word, index) => <Fragment key={index}>{index > 0 && ' '}<span className="hero__word" style={{ '--i': index } as React.CSSProperties}>{word}</span></Fragment>)}
-        </h1>
-        <p className="hero__lead hero-in" style={{ '--i': 9 } as React.CSSProperties}>Use your program forum, book professors, and send concerns to the right office in private. The CCS secretary provides student accounts.</p>
-        <div className="hero__actions hero-in" style={{ '--i': 11 } as React.CSSProperties}>
-          <Button href={signIn} size="lg" iconEnd="arrow-up-right">Sign in</Button>        </div>
-      </div>
-      <div className="hero__visual hero-in hero-in--panel" style={{ '--i': 4 } as React.CSSProperties}>
-        <div className="frame">
-          <div className="frame__glass frame__glass--forum">
-            <ForumCard topic="Thesis" title="Looking for a thesis adviser for the IS track" author="Paolo Dizon" replies={6} status="Open discussion" href={`${sites.portal}/feed`} actionLabel="Join the thread" />
-          </div>
-          <div className="frame__glass frame__glass--consult">
-            <Avatar name="Liza Manalastas" lane="consult" size={36} />
-            <div><strong>Prof. Liza Manalastas</strong><span>Consultation confirmed</span></div>
-            <Badge tone="consult" form="solid">Wed 09:00</Badge>
-          </div>
-        </div>
-      </div>
+  return <section className="hero" aria-labelledby="hero-title">
+    <div className="hero__sky" aria-hidden="true">
+      {beams.map(([x, width, alpha]) => <span key={x} className="hero__beam" style={{ '--x': `${x}px`, width, '--a': alpha } as React.CSSProperties} />)}
+      <span className="hero__stars" />
+    </div>
+    <div className="hero__tag hero__tag--left" aria-hidden="true"><span>Prof. Reyes · Adviser</span><Asset name="cursor" width={16} /></div>
+    <div className="hero__tag hero__tag--right" aria-hidden="true"><Asset name="cursor" width={16} /><span>Student A-41</span></div>
+    <div className="hero__copy">
+      {/* The horizon rides on the copy block so its curve meets the ask box at every width. */}
+      <span className="hero__glow" aria-hidden="true" />
+      <span className="hero__horizon" aria-hidden="true" />
+      <a className="hero__news hero-in" href={signInTo('/evaluations')}><span className="hero__new">NEW</span>Faculty evaluations are open for 1st semester <span aria-hidden="true">&nbsp;→</span></a>
+      <h1 id="hero-title" className="hero__title hero-in" style={{ '--i': 1 } as React.CSSProperties}>Your access to the <em>College of Computer Studies</em></h1>
+      <p className="hero__lead hero-in" style={{ '--i': 2 } as React.CSSProperties}>One workspace for private concern reporting, faculty appointments, class spaces, and every update from adviser to dean.</p>
+      <HeroAsk />
+    </div>
+    <div className="offices">
+      <h2 className="offices__label">Connected offices</h2>
+      <ul className="offices__row">{offices.map(office => <li key={office.name}><Asset name={office.icon} width={24} />{office.name}</li>)}</ul>
     </div>
   </section>;
 }
