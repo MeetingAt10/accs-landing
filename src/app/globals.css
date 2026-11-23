@@ -129,20 +129,6 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--lp-cobalt); out
 .hero__tag--right { top: 404px; left: calc(50% + 430px); align-items: flex-end; }
 @media (min-width: 1240px) { .hero__tag { display: flex; } }
 
-/* Hero ask box */
-.ask { display: flex; flex-direction: column; gap: 16px; width: min(640px, 100%); padding: 16px 14px 12px 18px; border: 1.5px solid rgba(255, 255, 255, .9); border-radius: 22px; background: rgba(255, 255, 255, .55); box-shadow: 0 20px 50px rgba(26, 51, 178, .18); backdrop-filter: blur(12px); text-align: start; transition: box-shadow .2s; }
-.ask:has(.ask__input:focus-visible) { box-shadow: 0 0 0 3px rgba(47, 59, 214, .45), 0 20px 50px rgba(26, 51, 178, .18); }
-.ask__input { width: 100%; padding: 0 0 0 2px; border: 0; background: transparent; color: var(--lp-text); font: 400 15px/18px var(--lp-body); caret-color: var(--lp-blue-600); outline: none; }
-.ask__input::placeholder { color: var(--lp-muted); opacity: 1; }
-.ask__row { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
-.ask__plus, .ask__chip, .ask__send { cursor: pointer; transition: background-color .2s, border-color .2s, transform .2s; }
-.ask__plus:active, .ask__chip:active, .ask__send:active { transform: scale(.96); }
-.ask__plus { display: grid; place-items: center; width: 32px; height: 32px; padding: 0; border: 1px solid #DCE3F7; border-radius: 999px; background: rgba(255, 255, 255, .8); }
-.ask__chip { display: inline-flex; align-items: center; gap: 6px; padding: 7px 12px 7px 10px; border: 1px solid #DCE3F7; border-radius: 999px; background: rgba(255, 255, 255, .8); color: var(--lp-text); font: 500 12px/15px var(--lp-body); white-space: nowrap; }
-.ask__plus:hover, .ask__chip:hover { border-color: #B9C6EE; background: #fff; }
-.ask__send { display: grid; place-items: center; width: 34px; height: 34px; margin-inline-start: auto; padding: 0; border: 0; border-radius: 999px; background: var(--lp-accent); box-shadow: 0 4px 12px rgba(46, 92, 255, .45); }
-.ask__send:hover { background: #1F49E8; }
-.ask button:focus-visible { outline: 2px solid var(--lp-blue-600); outline-offset: 2px; }
 
 /* Connected offices strip, inside the hero */
 .offices { display: flex; flex-direction: column; align-items: center; gap: 25px; margin-top: 195px; padding: 0 20px 84px; }
@@ -225,9 +211,11 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--lp-cobalt); out
 .cta__copy { flex: 1; min-width: 0; display: grid; gap: 12px; }
 .cta h2 { max-width: 640px; margin: 0; font: 700 clamp(28px, 2.5vw, 36px)/1.222 var(--lp-display); }
 .cta p { max-width: 600px; margin: 0; font: 400 16px/24px var(--lp-body); opacity: .8; }
-.cta__button { display: inline-flex; align-items: center; gap: 8px; padding: 16px 26px; border-radius: 12px; background: #fff; color: var(--lp-blue-800); font: 600 16px/19px var(--lp-body); text-decoration: none; white-space: nowrap; transition: transform .2s, box-shadow .2s; }
-.cta__button:hover { box-shadow: 0 10px 24px rgba(4, 8, 36, .3); transform: translateY(-1px); }
-.cta__button:active { transform: scale(.98); }
+/* Hero sign-in button: the same white button as the closing call to action. */
+.hero__cta:focus-visible { outline: 2px solid #fff; outline-offset: 3px; }
+.hero__cta, .cta__button { display: inline-flex; align-items: center; gap: 8px; padding: 16px 26px; border-radius: 12px; background: #fff; color: var(--lp-blue-800); font: 600 16px/19px var(--lp-body); text-decoration: none; white-space: nowrap; transition: transform .2s, box-shadow .2s; }
+.hero__cta:hover, .cta__button:hover { box-shadow: 0 10px 24px rgba(4, 8, 36, .3); transform: translateY(-1px); }
+.hero__cta:active, .cta__button:active { transform: scale(.98); }
 
 /* Footer */
 .site-footer { padding-block: 64px 32px; color: #fff; background: var(--lp-navy-950); }
@@ -278,7 +266,6 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--lp-cobalt); out
 @media (max-width: 640px) {
   .hero { padding-top: calc(var(--nav-h) + 40px); min-height: 0; }
   .hero__copy { gap: 18px; }
-  .ask { padding: 14px 12px 12px 14px; }
   .offices { margin-top: 140px; padding-bottom: 56px; }
   .offices__row { gap: 14px 28px; }
   .offices__row li { font-size: 15px; }
