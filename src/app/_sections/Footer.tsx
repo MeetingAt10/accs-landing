@@ -13,7 +13,7 @@ export function Footer() {
     <div className="site-footer__inner">
       <div className="site-footer__brand">
         <Wordmark className="wordmark--footer" />
-        <p>Your Access to the College of Computer Studies</p>
+        <p>Your access to the College of Computer Studies.</p>
         {/* Social marks from the frame. The college has published no account URLs, so they are not links. */}
         <ul className="site-footer__social" aria-hidden="true">
           <li><Asset name="social-facebook.svg" width={39} /></li>

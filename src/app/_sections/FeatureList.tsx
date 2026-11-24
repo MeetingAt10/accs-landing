@@ -3,14 +3,15 @@ import { useEffect, useRef, useState } from 'react';
 import { features, type FeatureIcon } from './features';
 
 function Icon({ icon }: { icon: FeatureIcon }) {
-  return <span aria-hidden="true" className="feat__icon" style={{ width: icon.size, height: icon.size }}>
-    {icon.parts.map(part => <span key={part.file} style={{ inset: part.inset, backgroundImage: `url(/landing/icons/${part.file}.svg)` }} />)}
+  // The SVGs are drawn as masks so the icons take the text colour instead of their exported fill.
+  return <span aria-hidden="true" className="feat__icon">
+    {icon.parts.map(part => <span key={part.file} style={{ inset: part.inset, maskImage: `url(/landing/icons/${part.file}.svg)`, WebkitMaskImage: `url(/landing/icons/${part.file}.svg)` }} />)}
   </span>;
 }
 
 /**
- * The four Feature Hover buttons. Hovering with a mouse, or pressing (click, tap, Enter or Space),
- * shows the pressed variant: a brighter button with its detail panel. Escape closes the open panel.
+ * The four feature rows. Hovering with a mouse, or pressing (click, tap, Enter or Space), opens the
+ * row's detail panel: beside the list on wide screens, under the row on narrow ones. Escape closes it.
  */
 export function FeatureList() {
   const [open, setOpen] = useState<number | null>(null);
@@ -34,16 +35,18 @@ export function FeatureList() {
       return <li key={feature.title} className="feat" data-open={expanded}
         onPointerEnter={event => { if (event.pointerType === 'mouse') setOpen(index); }}
         onPointerLeave={event => { if (event.pointerType === 'mouse') setOpen(current => current === index ? null : current); }}>
-        <button type="button" className="feat__button" aria-expanded={expanded} aria-controls={`feat-${index}`}
+        <h3 className="feat__heading"><button type="button" className="feat__button" aria-expanded={expanded} aria-controls={`feat-${index}`}
           onPointerDown={event => { pointer.current = event.pointerType; }}
           onClick={event => {
             // A mouse already opened the panel on hover, so its click keeps it open; keys and taps toggle.
             const hovered = event.detail !== 0 && pointer.current === 'mouse';
             setOpen(expanded && !hovered ? null : index);
           }}>
-          {feature.title}
-        </button>
+          <span className="feat__label"><span className="feat__title">{feature.title}</span><span className="feat__summary">{feature.summary}</span></span>
+          <span className="feat__toggle" aria-hidden="true" />
+        </button></h3>
         <div id={`feat-${index}`} className="feat__panel" role="region" aria-label={feature.title}>
+          <p className="feat__panel-title" aria-hidden="true">{feature.title}</p>
           <ul>{feature.items.map(item => <li key={item.title}>
             <Icon icon={item.icon} />
             <span><strong>{item.title}</strong><span>{item.body}</span></span>

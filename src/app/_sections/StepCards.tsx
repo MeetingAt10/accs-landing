@@ -2,11 +2,11 @@
 import { useState } from 'react';
 
 const steps = [
-  { title: 'You ask or report', body: 'Every request follows the same path, from the first message to the closed record' },
-  { title: 'ACCS routes it', body: 'The system directs your request to the appropriate role. For example, a report involving an adviser automatically skips them and goes straight to the Program Chair.' },
-  { title: 'A person replies', body: 'Professors confirm consultation slots and authorized reviewers handle reports. You can track every update and milestone in a single transparent thread.' },
-  { title: 'You get a notice', body: 'Receive instant alerts for important status changes. Each notice clearly identifies the event type while protecting sensitive personal details.' },
-  { title: 'ACCS keeps the record', body: 'All historical milestones remain securely logged on the case timeline, visible only to the specific personnel authorized to view them.' },
+  { title: 'You ask or report', body: 'Book a consultation or file a concern from your account.' },
+  { title: 'ACCS routes it', body: 'Fixed rules send it to the right person. A concern you mark as involving your adviser goes to the Program Chair.' },
+  { title: 'A person replies', body: 'Professors confirm or decline consultations. For a report, each office decides the next step.' },
+  { title: 'You get a notice', body: 'ACCS notifies you when your request changes.' },
+  { title: 'ACCS keeps the record', body: 'Every stage stays on the timeline, so you can see where your request has been.' },
 ];
 
 /** The Card Effect component: a stack of cards; pressing it deals the next step, wrapping after step 5. */
@@ -20,11 +20,11 @@ export function StepCards() {
       <span className="deck__card deck__card--right" aria-hidden="true" />
       <span className="deck__card deck__card--front" aria-hidden="true" />
       <span key={step} className="deck__text" aria-hidden="true">
-        <span className="deck__step">Step {step + 1}:</span>
+        <span className="deck__step">Step {step + 1} of {steps.length}</span>
         <span className="deck__title">{current.title}</span>
         <span className="deck__body">{current.body}</span>
       </span>
     </button>
-    <p className="sr-only" aria-live="polite">{`Step ${step + 1}: ${current.title}. ${current.body}`}</p>
+    <p className="sr-only" aria-live="polite">{`Step ${step + 1} of ${steps.length}: ${current.title}. ${current.body}`}</p>
   </div>;
 }
