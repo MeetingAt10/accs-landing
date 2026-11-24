@@ -226,8 +226,41 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--lp-cobalt); out
   .hero__mascot { left: auto; right: 6%; bottom: 112px; width: 240px; height: 228px; }
 }
 
-/* Below 1024px: one column */
+/* Tablets and half-screen windows (768–1023px): the desktop layouts stay side by side, just tighter, instead of
+   stretching the phone column across a wide window. */
+@media (min-width: 768px) and (max-width: 1023px) {
+  .hero__art { width: 56%; }
+  .hero__mascot { left: auto; right: 3%; bottom: 128px; width: 200px; height: 190px; }
+  .hero__copy { padding-top: 128px; padding-bottom: 64px; }
+  .hero__title { max-width: 12ch; }
+  .hero__lead { max-width: 36ch; }
+  .hero__roles { flex-wrap: wrap; }
+  .features__body { grid-template-columns: minmax(0, 1fr) 200px; gap: 32px; margin-top: 32px; }
+  .features__mascot { align-self: start; transform: scale(.72); transform-origin: top center; margin-top: 8px; }
+  .features__body:has(.feat[data-open="true"]) .features__mascot { opacity: 1; }
+  .stairs { gap: 16px; }
+  .stairs li { margin-top: calc(var(--i) * 24px); }
+  .stairs h3 { font-size: 1.0625rem; }
+  .stairs p { font-size: .875rem; }
+  .deck { width: 384px; height: 344px; }
+  .deck__button { transform: scale(.8); }
+  .cta__lion { left: 24px; width: 200px; height: 190px; }
+  .cta__card { padding: 40px 32px 40px 232px; }
+}
+
+/* Below 1024px: the feature details open under their row, and the footer goes to three columns */
 @media (max-width: 1023px) {
+  .feat__panel { position: static; display: none; margin: 0 0 20px; padding: 24px 20px; border-radius: 12px; opacity: 1; visibility: visible; transform: none; }
+  .feat[data-open="true"] .feat__panel { display: block; }
+  .feat__panel-title { display: none; }
+  .site-footer__inner { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .site-footer__brand { grid-column: 1 / -1; }
+  /* Touch-sized footer links. */
+  .site-footer__col a { min-height: 44px; }
+}
+
+/* Phones (below 768px): one column */
+@media (max-width: 767px) {
   .hero__art { position: relative; inset: auto; order: 2; width: 100%; height: 260px; margin-top: -40px; }
   .hero__photo { inset: 0; background-position: right bottom; background-size: auto 100%; }
   /* The lion stands on the building photo instead of floating apart from it. */
@@ -235,9 +268,6 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--lp-cobalt); out
   .hero__copy { order: 1; padding-top: 120px; padding-bottom: 0; }
   .hero__roles { order: 3; flex-direction: column; gap: 10px; }
   .features__body { grid-template-columns: minmax(0, 1fr); gap: 40px; margin-top: 32px; }
-  .feat__panel { position: static; display: none; margin: 0 0 20px; padding: 24px 20px; border-radius: 12px; opacity: 1; visibility: visible; transform: none; }
-  .feat[data-open="true"] .feat__panel { display: block; }
-  .feat__panel-title { display: none; }
   .features__body:has(.feat[data-open="true"]) .features__mascot { opacity: 1; }
   .features__mascot { transform: scale(.7); margin-block: -24px -96px; }
   .stairs { grid-template-columns: minmax(0, 1fr); gap: 20px; margin-top: 40px; }
@@ -248,10 +278,6 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--lp-cobalt); out
   .cta__inner { display: flex; flex-direction: column; align-items: center; }
   .cta__lion { position: relative; bottom: auto; left: auto; width: 220px; height: 209px; margin-bottom: -56px; }
   .cta__card { flex-direction: column; align-items: flex-start; width: 100%; padding: 72px 24px 32px; }
-  .site-footer__inner { grid-template-columns: repeat(3, minmax(0, 1fr)); }
-  .site-footer__brand { grid-column: 1 / -1; }
-  /* Touch-sized footer links. */
-  .site-footer__col a { min-height: 44px; }
 }
 @media (max-width: 600px) {
   .nav__actions { gap: 8px; }
