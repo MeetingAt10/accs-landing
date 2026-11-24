@@ -92,17 +92,13 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--lp-cobalt); out
 .hero { position: relative; isolation: isolate; overflow: clip; display: flex; flex-direction: column; background: var(--lp-blue); color: #fff; }
 .hero__art { position: absolute; inset: 0 0 0 auto; z-index: -1; width: min(58%, 820px); pointer-events: none; }
 .hero__photo { position: absolute; inset: 40px 0 0 0; background: url(/landing/building.png) no-repeat right bottom / auto 100%; filter: grayscale(1) contrast(1.05); mix-blend-mode: luminosity; opacity: .5; -webkit-mask: linear-gradient(to right, transparent, #000 22%); mask: linear-gradient(to right, transparent, #000 22%); }
-.hero__mascot { position: absolute; left: 6%; bottom: 72px; width: 300px; height: 285px; }
+.hero__mascot { position: absolute; left: 6%; bottom: 0; width: 300px; height: 285px; }
 .hero__mascot .lion { width: 100%; height: 100%; transform: rotate(-8deg); }
 .hero__copy { position: relative; display: flex; flex-direction: column; align-items: flex-start; padding-top: 152px; padding-bottom: 88px; }
 .wordmark--hero { font-size: 72px; }
 .hero__title { max-width: 15ch; margin: 28px 0 0; font: 700 clamp(2.5rem, 1.6rem + 2.8vw, 3.75rem)/1.05 var(--lp-jakarta); letter-spacing: -.03em; text-wrap: balance; }
 .hero__lead { max-width: 44ch; margin: 20px 0 0; color: rgba(255, 255, 255, .84); font-size: 1.1875rem; line-height: 1.55; }
 .hero__copy .btn { margin-top: 36px; }
-.hero__roles { position: relative; display: flex; align-items: baseline; gap: 12px 32px; padding-block: 22px 26px; }
-.hero__roles::before { content: ""; position: absolute; inset: 0 clamp(16px, 4vw, 40px) auto; border-top: 1px solid rgba(255, 255, 255, .2); }
-.hero__roles > p { flex: none; margin: 0; color: rgba(255, 255, 255, .7); font-size: .875rem; }
-.roles { display: flex; flex-wrap: wrap; gap: 6px 24px; margin: 0; padding: 0; list-style: none; font-size: .9375rem; font-weight: 500; }
 
 /* Mascots: the rest pose, then the wave, then "Hi!", on hover or while their section holds focus */
 .mascot { position: relative; display: block; }
@@ -220,21 +216,20 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--lp-cobalt); out
   .lion:hover .lion__hi, .cta:focus-within .lion__hi, .hero:focus-within .lion__hi { transition-delay: 0s; }
 }
 
-/* 1024–1279px: the copy column is wide enough to reach the art, so the lion moves right of the copy and
-   sits above the roles row instead of over the subtitle. */
+/* 1024–1279px: the copy column is wide enough to reach the art, so the lion moves right of the copy
+   instead of sitting over the subtitle. */
 @media (min-width: 1024px) and (max-width: 1279px) {
-  .hero__mascot { left: auto; right: 6%; bottom: 112px; width: 240px; height: 228px; }
+  .hero__mascot { left: auto; right: 6%; bottom: 0; width: 240px; height: 228px; }
 }
 
 /* Tablets and half-screen windows (768–1023px): the desktop layouts stay side by side, just tighter, instead of
    stretching the phone column across a wide window. */
 @media (min-width: 768px) and (max-width: 1023px) {
   .hero__art { width: 56%; }
-  .hero__mascot { left: auto; right: 3%; bottom: 128px; width: 200px; height: 190px; }
+  .hero__mascot { left: auto; right: 3%; bottom: 0; width: 200px; height: 190px; }
   .hero__copy { padding-top: 128px; padding-bottom: 64px; }
   .hero__title { max-width: 12ch; }
   .hero__lead { max-width: 36ch; }
-  .hero__roles { flex-wrap: wrap; }
   .features__body { grid-template-columns: minmax(0, 1fr) 200px; gap: 32px; margin-top: 32px; }
   .features__mascot { align-self: start; transform: scale(.72); transform-origin: top center; margin-top: 8px; }
   .features__body:has(.feat[data-open="true"]) .features__mascot { opacity: 1; }
@@ -266,7 +261,6 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--lp-cobalt); out
   /* The lion stands on the building photo instead of floating apart from it. */
   .hero__mascot { left: auto; right: max(16px, 18%); bottom: 0; width: 180px; height: 171px; }
   .hero__copy { order: 1; padding-top: 120px; padding-bottom: 0; }
-  .hero__roles { order: 3; flex-direction: column; gap: 10px; }
   .features__body { grid-template-columns: minmax(0, 1fr); gap: 40px; margin-top: 32px; }
   .features__body:has(.feat[data-open="true"]) .features__mascot { opacity: 1; }
   .features__mascot { transform: scale(.7); margin-block: -24px -96px; }
