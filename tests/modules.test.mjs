@@ -60,10 +60,10 @@ for (const path of pages) {
     assert.doesNotMatch(html, /\.webp\b|\/imagery\//i, 'no generated renders');
   });
 }
-test('home follows the landing order: hero, roles, features, offices, steps and call to action', () => {
+test('home follows the landing order: hero, features, offices, steps and call to action', () => {
   const text = textOnly(readFileSync(pages[0], 'utf8'));
   assert.ok(text.includes('Your access to the College of Computer Studies.'));
-  assert.match(text, /Who uses ACCS.*Students.*Professors.*Advisers.*Program Chairs.*The Dean.*Guidance.*OSAS.*CCS student organizations/, 'roles');
+  assert.doesNotMatch(text, /Who uses ACCS/i);
   assert.match(text, /What you can do in ACCS.*Raise a concern.*Book a consultation.*Follow your spaces.*Evaluate your professors/, 'feature rows');
   assert.match(text, /Who handles your concerns\?.*Adviser.*Program Chair.*Dean.*Guidance.*OSAS.*Community access never implies report access\./, 'routing order');
   assert.match(text, /How a request moves.*Step 1 of 5.*You ask or report/, 'request steps');
