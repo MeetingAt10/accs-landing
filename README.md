@@ -27,7 +27,7 @@ python3 -m http.server 4173 --directory out
 
 ## Content and routes
 
-- `/`: landing page that uses the Figma frame "Landing Page" (node `745:1289`) as a reference: a navy hero with the ACCS wordmark, building photo and lion mascot, the roles who use ACCS, "What you can do in ACCS" with four feature rows, the five offices that handle concerns, how a request moves, a mascot call to action and the footer. A feature row opens its details on hover, click, tap, Enter or Space (Escape closes); the step cards deal the next of five steps when pressed; the mascots wave and say "Hi!" on hover. Copy describes only what ACCS does: routing is rule-based (the student says when a concern involves their adviser, and it goes to the Program Chair), each office decides the next step, anonymous reports stay linked to the verified account, and evaluations are students evaluating their professors. There is no sign-up and no form: the CCS Secretary creates accounts, so every account action (navbar, hero, call to action, footer) is a Sign In link to portal sign-in. Our Team and Meeting At Ten link to the team site, Design System to the design site, Forum to `/feed` and FAQS to `/help` on the portal. The footer social icons have no published URLs and are not links.
+- `/`: landing page built from the Figma frame "10 Landing page": a hero with a single Sign in to ACCS button, four features, the five offices that handle concerns, how a request moves, and a sign-in call to action. There is no sign-up and no form: the CCS Secretary creates accounts, so every account link is Sign in. On screens 1024px and wider, a decorative report (`src/app/_components/courier.tsx`) idles under the hero sign-in button and follows the scroll from dock to dock (`[data-dock]`: each feature tile, the routing panel, the status card and the call to action), taking each stop's shape; it is off under reduced motion.
 - `/modules/`: all 58 modules as rows grouped under the 11 source role labels, with a role index and a filter by owning application site.
 
 `src/data/doc003.json` is the checked-in module fixture. Visible copy carries no document codes or module IDs; IDs stay only as `id`/`data-module` attributes for tests. `src/data/modules.ts` derives the rows, role counts and destinations from it. The ten operational roles share the five All users modules. The exported HTML contains every role section and module row.
@@ -36,7 +36,7 @@ The seven application workspaces are Home, Forums, Schedule, Cases, Evaluations,
 
 ## Design system
 
-The `/modules` inventory uses the Office Hours components for its forms and motion. The landing page uses Plus Jakarta Sans (Inter for buttons) with navy #032E87, ink #172033 and white (`globals.css`); the navy hero is the only strong surface. The building photo, mascots, icons and logo are exported from Figma into `public/landing/` and drawn as CSS backgrounds, so the pages still render no `<img>` elements. Decorative art is hidden from assistive technology; the wordmark has the accessible name "ACCS".
+The `/modules` inventory uses the Office Hours components for its forms and motion. The landing page uses Poppins and Inter with the colours from the Figma frame (`globals.css`). Its icons, stars, horizon and rings are SVGs exported from Figma into `public/landing/` and drawn as CSS backgrounds, so the pages still render no `<img>` elements.
 
 ### Mascot sprites
 

@@ -36,7 +36,7 @@
     },
     {
       "id": "ALL-04",
-      "name": "Help assistant",
+      "name": "AI navigation assistant",
       "role": "All users",
       "description": "Answers system-scoped questions and assists with navigation, schedules, report drafting, and milestone explanations.",
       "coreFunctionality": "FAQ; search guidance; schedule parsing; contextual assistance."
