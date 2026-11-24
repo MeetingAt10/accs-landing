@@ -38,6 +38,17 @@ The seven application workspaces are Home, Forums, Schedule, Cases, Evaluations,
 
 The `/modules` inventory uses the Office Hours components for its forms and motion. The landing page uses Plus Jakarta Sans (Inter for buttons) with navy #032E87, ink #172033 and white (`globals.css`); the navy hero is the only strong surface. The building photo, mascots, icons and logo are exported from Figma into `public/landing/` and drawn as CSS backgrounds, so the pages still render no `<img>` elements. Decorative art is hidden from assistive technology; the wordmark has the accessible name "ACCS".
 
+### Mascot sprites
+
+`npm run mascot` runs `scripts/mascot/build.mjs`, which rigs the lion and cub from their Figma exports in `public/landing/` and writes sprite sheets to `public/landing/mascot/`. The rig (`scripts/mascot/rig.mjs`) reuses the source parts, gradients and filters, splits the body into torso and arms, and redraws only the parts that change (lids, closed and happy eyes, brows, mouths, heart eyes, tears and props) in the source palette. `scripts/mascot/library.mjs` defines the stills and loops:
+
+- Emotions: neutral, happy, laughing, surprised, sad, thinking, sleepy, wink, love, proud. Poses: wave, point, cheer, document.
+- Loops: breathe (16 frames, 10 fps), blink (12, 12), look-around (16, 8), sway (fur or ears, 12, 10), doze (16, 6), wave (12, 12). Frame 1 of every loop is the rest pose.
+
+Each mascot folder holds one strip per loop (`<name>.svg`, `<name>@1x.png`, `<name>@2x.png`), the stills sheet (`sheet.*`, 7 columns) and `manifest.json` with the frame size, anchor, frame count, fps and loop flag. Cells are 280×275 (lion) and 308×322 (cub) at 1x, with the feet on the same baseline in every frame. The build fails if a frame draws outside its cell or a loop's last frame does not flow into its first. PNGs are rendered with headless Chromium from Playwright; set `PLAYWRIGHT_MODULE` to its `index.mjs` if it is not in `~/.agents/mcp-deps`. Open `public/landing/mascot/preview.html` to review every still and loop.
+
+`src/app/_components/mascot-sprite.tsx` plays a loop with CSS `steps()` (`<MascotSprite mascot="lion" animation="blink" />`) or shows a still (`still="happy"`). It is hidden from assistive technology unless given a `label`, and shows the first frame under `prefers-reduced-motion`. The landing page does not use it yet.
+
 ## Build-time URLs
 
 `src/lib/sites.ts` reads these public environment variables when the site builds. Rebuild after changing a URL. The technical `portal` key refers to ACCS Home in the interface.

@@ -1,0 +1,115 @@
+{
+  "mascot": "lion",
+  "basePath": "/landing/mascot/lion/",
+  "frameWidth": 280,
+  "frameHeight": 275,
+  "anchor": {
+    "x": 140,
+    "y": 267.7
+  },
+  "animations": {
+    "breathe": {
+      "file": "breathe@1x.png",
+      "file2x": "breathe@2x.png",
+      "svg": "breathe.svg",
+      "frameWidth": 280,
+      "frameHeight": 275,
+      "frames": 16,
+      "fps": 10,
+      "loop": true
+    },
+    "blink": {
+      "file": "blink@1x.png",
+      "file2x": "blink@2x.png",
+      "svg": "blink.svg",
+      "frameWidth": 280,
+      "frameHeight": 275,
+      "frames": 12,
+      "fps": 12,
+      "loop": true
+    },
+    "look-around": {
+      "file": "look-around@1x.png",
+      "file2x": "look-around@2x.png",
+      "svg": "look-around.svg",
+      "frameWidth": 280,
+      "frameHeight": 275,
+      "frames": 16,
+      "fps": 8,
+      "loop": true
+    },
+    "sway": {
+      "file": "sway@1x.png",
+      "file2x": "sway@2x.png",
+      "svg": "sway.svg",
+      "frameWidth": 280,
+      "frameHeight": 275,
+      "frames": 12,
+      "fps": 10,
+      "loop": true
+    },
+    "doze": {
+      "file": "doze@1x.png",
+      "file2x": "doze@2x.png",
+      "svg": "doze.svg",
+      "frameWidth": 280,
+      "frameHeight": 275,
+      "frames": 16,
+      "fps": 6,
+      "loop": true
+    },
+    "wave": {
+      "file": "wave@1x.png",
+      "file2x": "wave@2x.png",
+      "svg": "wave.svg",
+      "frameWidth": 280,
+      "frameHeight": 275,
+      "frames": 12,
+      "fps": 12,
+      "loop": true
+    }
+  },
+  "stills": {
+    "file": "sheet@1x.png",
+    "file2x": "sheet@2x.png",
+    "svg": "sheet.svg",
+    "frameWidth": 280,
+    "frameHeight": 275,
+    "columns": 7,
+    "rows": 2,
+    "frames": [
+      "neutral",
+      "happy",
+      "laughing",
+      "surprised",
+      "sad",
+      "thinking",
+      "sleepy",
+      "wink",
+      "love",
+      "proud",
+      "wave",
+      "point",
+      "cheer",
+      "document"
+    ],
+    "emotions": [
+      "neutral",
+      "happy",
+      "laughing",
+      "surprised",
+      "sad",
+      "thinking",
+      "sleepy",
+      "wink",
+      "love",
+      "proud"
+    ],
+    "poses": [
+      "wave",
+      "point",
+      "cheer",
+      "document"
+    ]
+  }
+}
