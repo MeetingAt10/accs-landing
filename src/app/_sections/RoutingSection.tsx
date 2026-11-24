@@ -18,7 +18,6 @@ export function RoutingSection() {
         <h2 id="offices-title">Who handles your concerns?</h2>
         <p>A report moves through these offices in order. Each office decides the next step, and you can see every stage.</p>
         <aside className="routing__note">
-          <span className="routing__note-mark" aria-hidden="true" />
           <span><b>Uncomfortable going to your adviser?</b> Say so when you file, and the report goes straight to the Program Chair.</span>
         </aside>
       </div>
