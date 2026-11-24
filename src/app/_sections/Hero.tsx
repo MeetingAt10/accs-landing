@@ -3,32 +3,26 @@ import { Wordmark } from '../_components/logo';
 import { Lion } from '../_components/mascot';
 import { signIn } from './site-list';
 
-/** Role pills from the frame: label, fill and pill width in px. */
-const roles = [
-  { label: 'Student', color: '#D6334B', width: 107.635 }, { label: 'Dean', color: '#9A2FC4', width: 107.635 }, { label: 'Adviser', color: '#C77A0A', width: 107.635 },
-  { label: 'OSAS', color: '#1E9E5A', width: 107.635 }, { label: 'Guidance', color: '#E43E3E', width: 107.635 }, { label: 'Faculty', color: '#F827AB', width: 107.635 },
-  { label: 'Professors', color: '#FBC100', width: 139 }, { label: 'CCS Organization', color: '#2F3BD6', width: 180 },
-];
+/** Who ACCS serves: the people and offices that sign in. One quiet list instead of colour-coded pills. */
+const roles = ['Students', 'Professors', 'Advisers', 'Program Chairs', 'The Dean', 'Guidance', 'OSAS', 'CCS student organizations'];
 
 export function Hero() {
   return <section className="hero" aria-labelledby="hero-title">
-    <div className="hero__bg" aria-hidden="true">
-      <span className="hero__glow" />
-      <span className="hero__glow" />
+    <div className="hero__art" aria-hidden="true">
       <span className="hero__photo" />
+      <span className="hero__mascot"><Lion /></span>
     </div>
-    <div className="hero__copy">
+    <div className="hero__copy wrap">
       <Wordmark className="wordmark--hero" />
-      <h1 id="hero-title" className="hero__title">Your access to the <br />College of Computer Studies.</h1>
-      <p className="hero__lead">Your direct connection to academic programs and resources. <br />Explore forums, schedule consultations, and securely route concerns</p>
-      <a className="btn btn--navy btn--access" href={signIn}>Access Now!<Asset name="arrow-up-right.svg" width={26.689} /></a>
+      <h1 id="hero-title" className="hero__title">Your access to the College of Computer Studies.</h1>
+      <p className="hero__lead">Book consultations, follow your section and organization spaces, and raise concerns that reach the right office.</p>
+      <a className="btn btn--light btn--lg" href={signIn}>Sign In<Asset name="arrow-up-right.svg" width={18} /></a>
     </div>
-    <div className="hero__mascot">
-      <Lion />
-      <Asset name="shadow-lion.svg" width={218.621} height={54.833} className="hero__shadow" />
+    <div className="hero__roles wrap">
+      <p id="roles-title">Who uses ACCS</p>
+      <ul className="roles" aria-labelledby="roles-title">
+        {roles.map(role => <li key={role}>{role}</li>)}
+      </ul>
     </div>
-    <ul className="roles" aria-label="Who uses ACCS">
-      {roles.map(role => <li key={role.label} style={{ '--role': role.color, '--w': `${role.width}px` } as React.CSSProperties}>{role.label}</li>)}
-    </ul>
   </section>;
 }

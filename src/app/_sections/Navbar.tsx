@@ -11,8 +11,8 @@ export function Navbar() {
     <div className="nav__bar">
       <Link className="nav__brand" href="/" aria-label="ACCS home"><LogoMark /></Link>
       <nav className="nav__actions" aria-label="Primary">
-        <a className="btn btn--outline" href={team}>Our Team</a>
-        <a className="btn btn--navy" href={signIn}>Sign In</a>
+        <a className="btn btn--ghost" href={team}>Our Team</a>
+        <a className="btn btn--light" href={signIn}>Sign In</a>
       </nav>
     </div>
   </header>;
