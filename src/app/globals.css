@@ -107,9 +107,9 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--lp-cobalt); out
 .lion__rest { background-image: url(/landing/lion.svg); }
 .lion__wave { background-image: url(/landing/lion-wave.svg); opacity: 0; }
 .lion__hi { background-image: url(/landing/lion-hi.svg); opacity: 0; }
-.lion:hover .lion__rest, .cta:focus-within .lion__rest, .hero:focus-within .lion__rest { opacity: 0; }
-.lion:hover .lion__wave, .cta:focus-within .lion__wave, .hero:focus-within .lion__wave { opacity: 1; }
-.lion:hover .lion__hi, .cta:focus-within .lion__hi, .hero:focus-within .lion__hi { opacity: 1; transition-delay: .35s; }
+.lion:hover .lion__rest, .hero:focus-within .lion__rest { opacity: 0; }
+.lion:hover .lion__wave, .hero:focus-within .lion__wave { opacity: 1; }
+.lion:hover .lion__hi, .hero:focus-within .lion__hi { opacity: 1; transition-delay: .35s; }
 .cub { width: 266px; height: 310px; }
 .cub__body { height: 100%; background-image: url(/landing/cub.svg); background-size: 100% 100%; transform-origin: 50% 90%; transition: transform .45s var(--lp-ease); }
 .cub__bubble { position: absolute; top: -30px; left: 180px; display: grid; place-items: center; width: 104px; height: 61px; padding-bottom: 14px; color: var(--lp-blue); font: 700 1.25rem/1 var(--lp-jakarta); opacity: 0; transform: translateY(8px) scale(.9); transform-origin: 0 100%; transition: opacity .25s, transform .35s var(--lp-ease); }
@@ -185,11 +185,10 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--lp-cobalt); out
 @keyframes deal { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
 @media (prefers-reduced-motion: no-preference) { .deck__text { animation: deal .35s var(--lp-ease) both; } }
 
-/* Call to action: the lion peeks over a solid navy card */
+/* Call to action: solid navy card */
 .cta { padding-top: 40px; }
 .cta__inner { position: relative; }
-.cta__card { position: relative; display: flex; align-items: center; gap: 32px; min-height: 200px; padding: 48px 48px 48px clamp(48px, 30%, 360px); border-radius: 16px; background: var(--lp-blue); color: #fff; }
-.cta__lion { position: absolute; bottom: 0; left: calc(clamp(16px, 4vw, 40px) + 40px); z-index: 1; width: 280px; height: 266px; }
+.cta__card { position: relative; display: flex; align-items: center; gap: 32px; min-height: 200px; padding: 48px; border-radius: 16px; background: var(--lp-blue); color: #fff; }
 .cta__copy { flex: 1 1 auto; min-width: 0; }
 .cta h2 { color: #fff; }
 .cta__copy p { max-width: 52ch; margin: 10px 0 0; color: rgba(255, 255, 255, .84); font-size: 1.125rem; line-height: 1.55; }
@@ -213,7 +212,7 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--lp-cobalt); out
 
 @media (prefers-reduced-motion: reduce) {
   .btn, .btn .asset, .mascot__layer, .cub__body, .cub__bubble, .feat__title, .feat__toggle, .feat__panel, .features__mascot, .deck__card { transition: none; }
-  .lion:hover .lion__hi, .cta:focus-within .lion__hi, .hero:focus-within .lion__hi { transition-delay: 0s; }
+  .lion:hover .lion__hi, .hero:focus-within .lion__hi { transition-delay: 0s; }
 }
 
 /* 1024–1279px: the copy column is wide enough to reach the art, so the lion moves right of the copy
@@ -239,8 +238,7 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--lp-cobalt); out
   .stairs p { font-size: .875rem; }
   .deck { width: 384px; height: 344px; }
   .deck__button { transform: scale(.8); }
-  .cta__lion { left: 24px; width: 200px; height: 190px; }
-  .cta__card { padding: 40px 32px 40px 232px; }
+  .cta__card { padding: 40px 32px; }
 }
 
 /* Below 1024px: the feature details open under their row, and the footer goes to three columns */
@@ -269,9 +267,7 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--lp-cobalt); out
   .how__inner { grid-template-columns: minmax(0, 1fr); justify-items: center; }
   .how__copy { justify-self: start; }
   .cta { padding-top: 0; }
-  .cta__inner { display: flex; flex-direction: column; align-items: center; }
-  .cta__lion { position: relative; bottom: auto; left: auto; width: 220px; height: 209px; margin-bottom: -56px; }
-  .cta__card { flex-direction: column; align-items: flex-start; width: 100%; padding: 72px 24px 32px; }
+  .cta__card { flex-direction: column; align-items: flex-start; width: 100%; padding: 32px 24px; }
 }
 @media (max-width: 600px) {
   .nav__actions { gap: 8px; }
