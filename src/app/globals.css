@@ -26,7 +26,9 @@
 }
 
 /* Shape and elevation: controls 10px, cards 16px, large frames 20-24px, chips pill. One of ring or layered shadow, never border plus soft shadow. */
-html { scroll-padding-top: calc(var(--nav-h) + 8px); scrollbar-color: var(--lp-hair-2) transparent; }
+/* No visible page scrollbar; the navbar shows scroll progress instead (.nav__progress). The page still scrolls. */
+html { scroll-padding-top: calc(var(--nav-h) + 8px); scrollbar-width: none; }
+html::-webkit-scrollbar { display: none; }
 body { background: var(--lp-canvas); color: var(--lp-ink); font-variant-numeric: tabular-nums; overflow-x: clip; }
 ::selection { background: color-mix(in srgb, var(--lp-cobalt) 28%, transparent); color: inherit; }
 input, textarea { caret-color: var(--lp-cobalt); }
@@ -76,7 +78,9 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--lp-cobalt); out
 .nav[data-solid="true"]:not([data-open="true"]) .nav__bar { max-width: calc(min(1440px, 100%) - 2 * clamp(20px, 8.334vw, 120px)); height: calc(var(--nav-h) - 20px); padding-inline: 22px 12px; border-color: rgba(255, 255, 255, .1); border-radius: 18px; background: rgba(6, 10, 40, .9); box-shadow: 0 18px 40px -20px rgba(4, 8, 36, .65), inset 0 1px 0 rgba(255, 255, 255, .06); backdrop-filter: blur(16px) saturate(1.4); }
 /* backdrop-filter would make the fixed scrim size to the bar, so it is dropped while the menu is open. */
 .nav[data-open="true"] { background: #050A2A; backdrop-filter: none; }
-.nav__bar { display: flex; align-items: center; gap: 24px; max-width: 1440px; height: var(--nav-h); margin-inline: auto; padding-inline: clamp(16px, 3.89vw, 56px); }
+/* Scroll progress: a thin line along the bottom of the bar that fills left to right as the page scrolls. */
+.nav__progress { position: absolute; right: 18px; bottom: 0; left: 18px; height: 2px; border-radius: 1px; background: linear-gradient(90deg, #7C9BFF, #fff); transform: scaleX(var(--progress, 0)); transform-origin: left; box-shadow: 0 0 10px rgba(124, 155, 255, .8); pointer-events: none; }
+.nav__bar { position: relative; display: flex; align-items: center; gap: 24px; max-width: 1440px; height: var(--nav-h); margin-inline: auto; padding-inline: clamp(16px, 3.89vw, 56px); }
 .nav__brand { display: inline-flex; border-radius: 10px; color: inherit; text-decoration: none; }
 .nav__links { display: none; flex: 1; justify-content: center; gap: 36px; }
 .nav__links a { color: #fff; font: 500 14px/17px var(--lp-body); text-decoration: none; opacity: .85; transition: opacity .2s; }
