@@ -1,13 +1,11 @@
 import { Asset } from '../_components/asset';
 import { Wordmark } from '../_components/logo';
-import { Lion } from '../_components/mascot';
 import { signIn } from './site-list';
 
 export function Hero() {
   return <section className="hero" aria-labelledby="hero-title">
     <div className="hero__art" aria-hidden="true">
       <span className="hero__photo" />
-      <span className="hero__mascot"><Lion /></span>
     </div>
     <div className="hero__copy wrap">
       <Wordmark className="wordmark--hero" />

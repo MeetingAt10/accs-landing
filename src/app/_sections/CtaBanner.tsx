@@ -1,9 +1,11 @@
 import { Asset } from '../_components/asset';
+import { Lion } from '../_components/mascot';
 import { signIn } from './site-list';
 
 export function CtaBanner() {
   return <section className="cta lp-section" aria-labelledby="cta-title">
     <div className="wrap cta__inner">
+      <Lion className="cta__lion" />
       <div className="cta__card">
         <div className="cta__copy">
           <h2 id="cta-title">Sign in to ACCS</h2>
