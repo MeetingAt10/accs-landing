@@ -60,22 +60,28 @@ for (const path of pages) {
     assert.doesNotMatch(html, /\.webp\b|\/imagery\//i, 'no generated renders');
   });
 }
-test('home follows the landing frame: offices, routing order, steps and sign-in', () => {
+test('home follows the landing frame: hero, roles, features, offices, steps and call to action', () => {
   const text = textOnly(readFileSync(pages[0], 'utf8'));
-  assert.ok(text.includes('Your access to the College of Computer Studies'));
-  assert.match(text, /Adviser.*Program Chair.*Dean.*Guidance.*OSAS.*Registrar/, 'connected offices');
-  assert.match(text, /Who handles your concerns\?.*Adviser.*Program Chair.*Dean.*Guidance.*OSAS/, 'routing order');
-  assert.match(text, /Submit.*Get routed.*Handler reviews.*Escalate if needed.*Resolved/, 'request steps');
-  assert.ok(text.includes('Sign in') && text.includes('Sign in to ACCS'));
+  assert.ok(text.includes('Your access to the College of Computer Studies.'));
+  assert.match(text, /Student.*Dean.*Adviser.*OSAS.*Guidance.*Faculty.*Professors.*CCS Organization/, 'role pills');
+  assert.match(text, /Unified Access, Empowered Community!.*Secure Grievance & Smart Routing.*Synchronized Faculty Consultations.*Moderated Academic Community Hub.*Better Academic Standards/, 'feature buttons');
+  assert.match(text, /Who handles your concerns\?.*Adviser.*Program Chair.*Dean.*Guidance.*OSAS.*Community access never implies report access\./, 'routing order');
+  assert.match(text, /How a request moves.*Step 1:.*You ask or report/, 'request steps');
+  assert.ok(text.includes('Access Your College Workspace Now!'));
   assert.doesNotMatch(text, /sample data|synthetic|prototype|simulated|\bdemo\b|not an official|\bTBD\b|\bD-\d+\b/i);
 });
 test('home anchors and account links resolve', () => {
   const html = readFileSync(pages[0], 'utf8');
   for (const id of ['main', 'features', 'offices', 'how-it-works']) assert.match(html, new RegExp(`\\bid="${id}"`), id);
   const signIn = `${configured.portal}/sign-in`;
-  for (const label of ['Sign in', 'Sign in to ACCS']) assert.match(html, new RegExp(`href="${signIn}"[^>]*>${label}<`), label);
+  // Navbar and footer "Sign In", the hero and call-to-action "Access Now!": every account action is sign-in.
+  assert.equal([...html.matchAll(new RegExp(`href="${signIn}"[^>]*>Sign In<`, 'g'))].length, 2, 'Sign In');
+  assert.equal([...html.matchAll(new RegExp(`href="${signIn}"[^>]*>Access Now!<`, 'g'))].length, 2, 'Access Now!');
+  for (const [label, href] of [['Modules', '/modules/'], ['Forum', `${configured.portal}/feed`], ['FAQS', `${configured.portal}/help`]]) assert.match(html, new RegExp(`href="${href}"[^>]*>${label}<`), label);
+  // Calls to action are links, not forms.
+  assert.doesNotMatch(html, /<(form|input|textarea)\b/);
   // Accounts are issued by the CCS Secretary: no sign-up anywhere.
-  assert.doesNotMatch(textOnly(html), /create account|sign up|sign-up|register/i);
+  assert.doesNotMatch(textOnly(html), /create account|sign up|sign-up|register|open workspace/i);
 });
 
 // The module inventory lives on /modules only; the home page follows the landing frame.

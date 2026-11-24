@@ -1,33 +1,34 @@
 import { Asset } from '../_components/asset';
-import { signIn, signInTo } from './site-list';
+import { Wordmark } from '../_components/logo';
+import { Lion } from '../_components/mascot';
+import { signIn } from './site-list';
 
-const offices = [
-  { name: 'Adviser', icon: 'office-users' }, { name: 'Program Chair', icon: 'office-cases' }, { name: 'Dean', icon: 'office-shield' },
-  { name: 'Guidance', icon: 'office-heart' }, { name: 'OSAS', icon: 'office-forums' }, { name: 'Registrar', icon: 'office-evaluations' },
+/** Role pills from the frame: label, fill and pill width in px. */
+const roles = [
+  { label: 'Student', color: '#D6334B', width: 107.635 }, { label: 'Dean', color: '#9A2FC4', width: 107.635 }, { label: 'Adviser', color: '#C77A0A', width: 107.635 },
+  { label: 'OSAS', color: '#1E9E5A', width: 107.635 }, { label: 'Guidance', color: '#E43E3E', width: 107.635 }, { label: 'Faculty', color: '#F827AB', width: 107.635 },
+  { label: 'Professors', color: '#FBC100', width: 139 }, { label: 'CCS Organization', color: '#2F3BD6', width: 180 },
 ];
-// Light beams in the sky: offset from the page centre, width and peak opacity from the Figma frame.
-const beams = [[-420, 2, .25], [-200, 1, .18], [190, 2, .22], [410, 1, .16], [0, 3, .12]] as const;
 
 export function Hero() {
   return <section className="hero" aria-labelledby="hero-title">
-    <div className="hero__sky" aria-hidden="true">
-      {beams.map(([x, width, alpha]) => <span key={x} className="hero__beam" style={{ '--x': `${x}px`, width, '--a': alpha } as React.CSSProperties} />)}
-      <span className="hero__stars" />
+    <div className="hero__bg" aria-hidden="true">
+      <span className="hero__glow" />
+      <span className="hero__glow" />
+      <span className="hero__photo" />
     </div>
-    <div className="hero__tag hero__tag--left" aria-hidden="true"><span>Prof. Reyes · Adviser</span><Asset name="cursor" width={16} /></div>
-    <div className="hero__tag hero__tag--right" aria-hidden="true"><Asset name="cursor" width={16} /><span>Student A-41</span></div>
     <div className="hero__copy">
-      {/* The horizon rides on the copy block so its curve meets the sign-in button at every width. */}
-      <span className="hero__glow" aria-hidden="true" />
-      <span className="hero__horizon" aria-hidden="true" />
-      <a className="hero__news hero-in" href={signInTo('/evaluations')}><span className="hero__new">NEW</span>Faculty evaluations are open for 1st semester <span aria-hidden="true">&nbsp;→</span></a>
-      <h1 id="hero-title" className="hero__title hero-in" style={{ '--i': 1 } as React.CSSProperties}>Your access to the <em>College of Computer Studies</em></h1>
-      <p className="hero__lead hero-in" style={{ '--i': 2 } as React.CSSProperties}>One workspace for private concern reporting, faculty appointments, class spaces, and every update from adviser to dean.</p>
-      <a className="hero__cta hero-in" href={signIn} style={{ '--i': 3 } as React.CSSProperties}>Sign in to ACCS<Asset name="cta-arrow" width={18} /></a>
+      <Wordmark className="wordmark--hero" />
+      <h1 id="hero-title" className="hero__title">Your access to the <br />College of Computer Studies.</h1>
+      <p className="hero__lead">Your direct connection to academic programs and resources. <br />Explore forums, schedule consultations, and securely route concerns</p>
+      <a className="btn btn--navy btn--access" href={signIn}>Access Now!<Asset name="arrow-up-right.svg" width={26.689} /></a>
     </div>
-    <div className="offices">
-      <h2 className="offices__label">Connected offices</h2>
-      <ul className="offices__row">{offices.map(office => <li key={office.name}><Asset name={office.icon} width={24} />{office.name}</li>)}</ul>
+    <div className="hero__mascot">
+      <Lion />
+      <Asset name="shadow-lion.svg" width={218.621} height={54.833} className="hero__shadow" />
     </div>
+    <ul className="roles" aria-label="Who uses ACCS">
+      {roles.map(role => <li key={role.label} style={{ '--role': role.color, '--w': `${role.width}px` } as React.CSSProperties}>{role.label}</li>)}
+    </ul>
   </section>;
 }

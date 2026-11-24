@@ -27,7 +27,7 @@ python3 -m http.server 4173 --directory out
 
 ## Content and routes
 
-- `/`: landing page built from the Figma frame "10 Landing page": hero with a quick-start box, connected offices, one-account stats, four features, the five offices that handle concerns, how a request moves, and a sign-in call to action. The quick-start box sends visitors to the portal: concern words and the concern chips open `/reports/new`, booking words open `/consultations`, anything else opens sign-in with a redirect to `/search`. There is no sign-up: the CCS Secretary creates accounts, so every account link is Sign in.
+- `/`: landing page built from the Figma frame "Landing Page" (node `745:1289`): hero with the ACCS wordmark, building photo and lion mascot, role pills, "Unified access, empowered community!" with four feature buttons, the five offices that handle concerns, how a request moves, a mascot call to action and the footer. The feature buttons open their detail panel on hover, click, tap, Enter or Space (Escape closes); the step cards deal the next of five steps when pressed; the mascots wave and say "Hi!" on hover. There is no sign-up and no form: the CCS Secretary creates accounts, so the navbar and footer Sign In and both Access Now! buttons link to portal sign-in. Our Team and Meeting At Ten link to the team site, Design System to the design site, Forum to `/feed` and FAQS to `/help` on the portal. The footer social icons have no published URLs and are not links.
 - `/modules/`: all 58 modules as rows grouped under the 11 source role labels, with a role index and a filter by owning application site.
 
 `src/data/doc003.json` is the checked-in module fixture. Visible copy carries no document codes or module IDs; IDs stay only as `id`/`data-module` attributes for tests. `src/data/modules.ts` derives the rows, role counts and destinations from it. The ten operational roles share the five All users modules. The exported HTML contains every role section and module row.
@@ -36,7 +36,7 @@ The seven application workspaces are Home, Forums, Schedule, Cases, Evaluations,
 
 ## Design system
 
-The `/modules` inventory uses the Office Hours components for its forms and motion. The landing page uses Poppins and Inter with the colours from the Figma frame (`globals.css`). Its icons, stars, horizon and rings are SVGs exported from Figma into `public/landing/` and drawn as CSS backgrounds, so the pages still render no `<img>` elements.
+The `/modules` inventory uses the Office Hours components for its forms and motion. The landing page uses Inter and Plus Jakarta Sans with the colours from the Figma frame (`globals.css`). The building photo, mascots, glows, icons and logo are exported from Figma into `public/landing/` and drawn as CSS backgrounds, so the pages still render no `<img>` elements. Decorative art is hidden from assistive technology; the wordmark has the accessible name "ACCS".
 
 ## Build-time URLs
 
