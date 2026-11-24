@@ -18,10 +18,16 @@ export function Navbar() {
   // On the home page the bar floats over the hero sky until the page scrolls; elsewhere it is solid.
   const overHero = usePathname() === '/';
   useEffect(() => {
-    const update = () => setScrolled(window.scrollY > 8);
+    // The bar also shows how far down the page you are (the page has no visible scrollbar).
+    const update = () => {
+      setScrolled(window.scrollY > 8);
+      const max = document.documentElement.scrollHeight - window.innerHeight;
+      bar.current?.style.setProperty('--progress', String(max > 0 ? Math.min(1, window.scrollY / max) : 0));
+    };
     update();
     window.addEventListener('scroll', update, { passive: true });
-    return () => window.removeEventListener('scroll', update);
+    window.addEventListener('resize', update);
+    return () => { window.removeEventListener('scroll', update); window.removeEventListener('resize', update); };
   }, []);
   useEffect(() => {
     if (!open) return;
@@ -31,6 +37,7 @@ export function Navbar() {
   }, [open]);
   return <header className="nav" ref={bar} data-open={open} data-solid={!overHero || scrolled || open}>
     <div className="nav__bar">
+      <span className="nav__progress" aria-hidden="true" />
       <Link className="nav__brand" href="/" aria-label="ACCS home"><Brand /></Link>
       <nav className="nav__links" aria-label="Primary">{links.map(link => <a key={link.href} href={link.href}>{link.label}</a>)}</nav>
       <div className="nav__actions">
