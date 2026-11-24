@@ -1,6 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import Script from "next/script";
-import { Inter, JetBrains_Mono, Plus_Jakarta_Sans } from "next/font/google";
+import { Inter, JetBrains_Mono, Plus_Jakarta_Sans, Poppins } from "next/font/google";
 import { Providers } from "./providers";
 import { Navbar } from "./_sections/Navbar";
 import { Footer } from "./_sections/Footer";
@@ -15,6 +15,14 @@ const inter = Inter({
 const plusJakartaSans = Plus_Jakarta_Sans({
   variable: "--font-plus-jakarta-sans",
   subsets: ["latin"],
+});
+
+// Poppins 600 and 700, upright and italic: the landing page display face from the Figma frame.
+const poppins = Poppins({
+  variable: "--font-poppins",
+  subsets: ["latin"],
+  weight: ["600", "700"],
+  style: ["normal", "italic"],
 });
 
 const jetbrainsMono = JetBrains_Mono({
@@ -46,7 +54,7 @@ const gaId = process.env.NEXT_PUBLIC_GA_ID;
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html lang="en" className={`${inter.variable} ${plusJakartaSans.variable} ${jetbrainsMono.variable} antialiased`}>
+    <html lang="en" className={`${inter.variable} ${plusJakartaSans.variable} ${poppins.variable} ${jetbrainsMono.variable} antialiased`}>
       <body className="ds-body">
         <Providers><a className="skip-link" href="#main">Skip to content</a><Navbar />{children}<Footer /></Providers>
         {gaId && (

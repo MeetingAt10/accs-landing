@@ -7,6 +7,9 @@ const fixture = JSON.parse(readFileSync('src/data/doc003.json', 'utf8'));
 const decode = text => text.replace(/&(?:amp|quot|apos|lt|gt|#x27|#39|#\d+|#x[\da-f]+);/gi, entity => ({ '&amp;': '&', '&quot;': '"', '&apos;': "'", '&lt;': '<', '&gt;': '>', '&#x27;': "'", '&#39;': "'" })[entity] ?? String.fromCodePoint(parseInt(entity.slice(entity[2] === 'x' ? 3 : 2, -1), entity[2] === 'x' ? 16 : 10)));
 const textOnly = html => decode(html.replace(/<script\b[^>]*>[\s\S]*?<\/script>/g, '').replace(/<[^>]+>/g, ' ')).replace(/\s+/g, ' ');
 const pages = ['out/index.html', 'out/modules/index.html'];
+const inventoryPage = 'out/modules/index.html';
+// Public sites outside ACCS that the footer links to.
+const external = ['https://qcu.edu.ph'];
 const expectedRoles = ['All users', 'Student', 'CCS Student Organization', 'Professor', 'CCS Staff', 'Program Chair', 'Dean', 'QCU Administrator / Moderator', 'Guidance', 'OSAS', 'Office of the University President'];
 const configured = Object.fromEntries([...readFileSync('src/lib/sites.ts', 'utf8').matchAll(/(\w+):\s*process\.env\.(NEXT_PUBLIC_\w+)\s*\?\?\s*['"]([^'"]+)['"]/g)].map(([, key, env, fallback]) => [key, process.env[env] ?? fallback]));
 const portalPaths = ['/sign-in', '/home', '/notifications', '/assistant', '/help', '/standing', '/profile', '/feed', '/spaces', '/organizations', '/messages', '/directory', '/calendar', '/consultations'];
@@ -28,13 +31,6 @@ test('DOC003 has 58 unique modules and the 11 exact source roles', () => {
   assert.deepEqual([...new Set(fixture.modules.map(item => item.role))], expectedRoles);
 });
 for (const path of pages) {
-  test(`${path}: all module IDs, exact names and roles render as HTML`, () => {
-    const text = textOnly(readFileSync(path, 'utf8'));
-    for (const item of fixture.modules) {
-      assert.ok(text.includes(item.name), item.name);
-    }
-    for (const role of expectedRoles) assert.ok(text.includes(role), role);
-  });
   test(`${path}: visible copy has no document codes or module IDs`, () => {
     const text = textOnly(readFileSync(path, 'utf8'));
     assert.doesNotMatch(text, /DOC0\d\d/);
@@ -51,6 +47,7 @@ for (const path of pages) {
       if (!/^https?:/.test(href)) continue;
       const url = new URL(href);
       if (url.origin === 'https://www.googletagmanager.com') continue; // Next preloads the GA script as a <link href>; it is not a site link
+      if (external.includes(url.origin)) continue;
       const entry = Object.entries(configured).find(([, origin]) => url.origin === new URL(origin).origin);
       assert.ok(entry, href);
       if (entry[0] === 'portal') assert.ok(portalPaths.some(route => under(url.pathname, route)), href);
@@ -62,37 +59,43 @@ for (const path of pages) {
     assert.equal([...html.matchAll(/<img\b[^>]+>/g)].length, 0, 'no <img> elements');
     assert.doesNotMatch(html, /\.webp\b|\/imagery\//i, 'no generated renders');
   });
-  test(`${path}: all 58 modules have the correct owning-site destination`, () => {
-    const html = readFileSync(path, 'utf8');
-    for (const [site, ids] of Object.entries(ownership)) {
-      for (const id of ids.split(' ')) {
-        const card = html.match(new RegExp(`<article[^>]*data-module="${id}"[^>]*>[\\s\\S]*?<\\/article>`))?.[0];
-        assert.ok(card, id);
-        assert.ok(card.includes(`data-site="${site}"`), `${id}: ${site}`);
-        const open = ['portal', 'forums', 'schedule'].includes(site);
-        assert.ok(card.includes(`href="${open ? configured.portal : `${configured.portal}/sign-in`}`), `${id}: ${site}`);
-      }
-    }
-  });
 }
-test('home shows each site module count from source and the three named programs', () => {
-  const html = readFileSync(pages[0], 'utf8');
-  let total = 0;
-  for (const [site, ids] of Object.entries(ownership)) {
-    const count = ids.split(' ').length;
-    total += count;
-    assert.match(html, new RegExp(`data-site-modules="${site}" data-value="${count}"`));
-  }
-  assert.equal(total, fixture.modules.length);
-  for (const program of ['BSIT', 'BSCS', 'BSIS']) assert.ok(textOnly(html).includes(program));
-});
-test('home presents the seven workspaces, the boundary, the escalation path and no disclaimers', () => {
+test('home follows the landing frame: routing order, steps and sign-in', () => {
   const text = textOnly(readFileSync(pages[0], 'utf8'));
-  for (const title of ['ACCS Home', 'Forums', 'Schedule', 'Cases', 'Evaluations', 'Records', 'Admin']) assert.ok(text.includes(title), title);
-  assert.ok(text.includes('Community access never implies report access.'));
-  assert.match(text, /Adviser.*Program Chair.*Dean.*Guidance.*OSAS.*President's Office/);
-  assert.ok(text.includes('Sign in') && !text.includes('Create account'));
-  assert.doesNotMatch(text, /sample data|synthetic|prototype|simulated|\bdemo\b|not an official/i);
+  assert.ok(text.includes('Your access to the College of Computer Studies'));
+  assert.match(text, /Who handles your concerns\?.*Adviser.*Program Chair.*Dean.*Guidance.*OSAS/, 'routing order');
+  assert.match(text, /Submit.*Get routed.*Handler reviews.*Escalate if needed.*Resolved/, 'request steps');
+  assert.ok(text.includes('Sign in') && text.includes('Sign in to ACCS'));
+  assert.doesNotMatch(text, /sample data|synthetic|prototype|simulated|\bdemo\b|not an official|\bTBD\b|\bD-\d+\b/i);
+});
+test('home anchors and account links resolve', () => {
+  const html = readFileSync(pages[0], 'utf8');
+  for (const id of ['main', 'features', 'offices', 'how-it-works']) assert.match(html, new RegExp(`\\bid="${id}"`), id);
+  const signIn = `${configured.portal}/sign-in`;
+  for (const label of ['Sign in', 'Sign in to ACCS']) assert.match(html, new RegExp(`href="${signIn}"[^>]*>${label}<`), label);
+  // Accounts are issued by the CCS Secretary: no sign-up anywhere.
+  assert.doesNotMatch(textOnly(html), /create account|sign up|sign-up|register/i);
+});
+
+// The module inventory lives on /modules only; the home page follows the landing frame.
+test(`${inventoryPage}: all module IDs, exact names and roles render as HTML`, () => {
+  const text = textOnly(readFileSync(inventoryPage, 'utf8'));
+  for (const item of fixture.modules) {
+    assert.ok(text.includes(item.name), item.name);
+  }
+  for (const role of expectedRoles) assert.ok(text.includes(role), role);
+});
+test(`${inventoryPage}: all 58 modules have the correct owning-site destination`, () => {
+  const html = readFileSync(inventoryPage, 'utf8');
+  for (const [site, ids] of Object.entries(ownership)) {
+    for (const id of ids.split(' ')) {
+      const card = html.match(new RegExp(`<article[^>]*data-module="${id}"[^>]*>[\\s\\S]*?<\\/article>`))?.[0];
+      assert.ok(card, id);
+      assert.ok(card.includes(`data-site="${site}"`), `${id}: ${site}`);
+      const open = ['portal', 'forums', 'schedule'].includes(site);
+      assert.ok(card.includes(`href="${open ? configured.portal : `${configured.portal}/sign-in`}`), `${id}: ${site}`);
+    }
+  }
 });
 const walk = dir => readdirSync(dir, { withFileTypes: true }).flatMap(entry => entry.isDirectory() ? walk(join(dir, entry.name)) : entry.name.endsWith('.html') ? [join(dir, entry.name)] : []);
 test('static export never links public visitors to the admin, records, cases or evaluations paths', () => {

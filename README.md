@@ -27,7 +27,7 @@ python3 -m http.server 4173 --directory out
 
 ## Content and routes
 
-- `/`: landing page with site previews, features, the concern escalation path, workflow, programs, a forum thread list and upcoming events.
+- `/`: landing page built from the Figma frame "10 Landing page": a hero with a single Sign in to ACCS button, four features, the five offices that handle concerns, how a request moves, and a sign-in call to action. There is no sign-up and no form: the CCS Secretary creates accounts, so every account link is Sign in. On screens 1024px and wider, a decorative report (`src/app/_components/courier.tsx`) idles under the hero sign-in button and follows the scroll from dock to dock (`[data-dock]`: each feature tile, the routing panel, the status card and the call to action), taking each stop's shape; it is off under reduced motion.
 - `/modules/`: all 58 modules as rows grouped under the 11 source role labels, with a role index and a filter by owning application site.
 
 `src/data/doc003.json` is the checked-in module fixture. Visible copy carries no document codes or module IDs; IDs stay only as `id`/`data-module` attributes for tests. `src/data/modules.ts` derives the rows, role counts and destinations from it. The ten operational roles share the five All users modules. The exported HTML contains every role section and module row.
@@ -36,7 +36,18 @@ The seven application workspaces are Home, Forums, Schedule, Cases, Evaluations,
 
 ## Design system
 
-The Office Hours components provide the navigation, forms, timetable and motion. The pages use no picture assets: the hero is built from live components (a forum card and a consultation chip). The ACCS wordmark is the door plate.
+The `/modules` inventory uses the Office Hours components for its forms and motion. The landing page uses Poppins and Inter with the colours from the Figma frame (`globals.css`). Its icons, stars, horizon and rings are SVGs exported from Figma into `public/landing/` and drawn as CSS backgrounds, so the pages still render no `<img>` elements.
+
+### Mascot sprites
+
+`npm run mascot` runs `scripts/mascot/build.mjs`, which rigs the lion and cub from their Figma exports in `public/landing/` and writes sprite sheets to `public/landing/mascot/`. The rig (`scripts/mascot/rig.mjs`) reuses the source parts, gradients and filters, splits the body into torso and arms, and redraws only the parts that change (lids, closed and happy eyes, brows, mouths, heart eyes, tears and props) in the source palette. `scripts/mascot/library.mjs` defines the stills and loops:
+
+- Emotions: neutral, happy, laughing, surprised, sad, thinking, sleepy, wink, love, proud. Poses: wave, point, cheer, document.
+- Loops: breathe (16 frames, 10 fps), blink (12, 12), look-around (16, 8), sway (fur or ears, 12, 10), doze (16, 6), wave (12, 12). Frame 1 of every loop is the rest pose.
+
+Each mascot folder holds one strip per loop (`<name>.svg`, `<name>@1x.png`, `<name>@2x.png`), the stills sheet (`sheet.*`, 7 columns) and `manifest.json` with the frame size, anchor, frame count, fps and loop flag. Cells are 280×275 (lion) and 308×322 (cub) at 1x, with the feet on the same baseline in every frame. The build fails if a frame draws outside its cell or a loop's last frame does not flow into its first. PNGs are rendered with headless Chromium from Playwright; set `PLAYWRIGHT_MODULE` to its `index.mjs` if it is not in `~/.agents/mcp-deps`. Open `public/landing/mascot/preview.html` to review every still and loop.
+
+`src/app/_components/mascot-sprite.tsx` plays a loop with CSS `steps()` (`<MascotSprite mascot="lion" animation="blink" />`) or shows a still (`still="happy"`). It is hidden from assistive technology unless given a `label`, and shows the first frame under `prefers-reduced-motion`. The landing page does not use it yet.
 
 ## Build-time URLs
 

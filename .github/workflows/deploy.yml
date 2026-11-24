@@ -2,11 +2,11 @@ name: Deploy
 
 on:
   push:
-    branches: [main]
+    branches: [main, dev]
   workflow_dispatch:
 
 concurrency:
-  group: deploy
+  group: deploy-${{ github.ref_name }} # main and dev deploy to different stacks, so they must not cancel each other
   cancel-in-progress: false
 
 permissions:
@@ -14,7 +14,7 @@ permissions:
 
 env:
   AWS_REGION: ap-southeast-1
-  STACK: accs-prod # the landing site exists only in prod (access-ccs.com)
+  STACK: ${{ github.ref_name == 'main' && 'accs-prod' || 'accs-dev' }} # main serves access-ccs.com, dev serves dev.access-ccs.com
   SITE: Landing
 
 jobs:
@@ -51,14 +51,28 @@ jobs:
           echo "bucket=$(out ${SITE}Bucket)" >> "$GITHUB_OUTPUT"
           echo "distribution=$(out ${SITE}DistributionId)" >> "$GITHUB_OUTPUT"
           echo "url=$(out ${SITE}Url)" >> "$GITHUB_OUTPUT"
+          echo "portal=$(out AppUrl)" >> "$GITHUB_OUTPUT"
+          echo "design=$(out DesignUrl)" >> "$GITHUB_OUTPUT"
+          echo "meeting=$(out MeetingUrl)" >> "$GITHUB_OUTPUT"
 
+      # Links point at the same environment's sites (plain hosts on main, -dev hosts on dev).
       - run: npm run build
         env:
           NEXT_PUBLIC_SITE_URL: ${{ steps.stack.outputs.url }}
           NEXT_PUBLIC_GA_ID: ${{ github.ref_name == 'main' && 'G-EX3ZJ1PNKF' || '' }} # only the prod build reports to GA
+          NEXT_PUBLIC_LANDING_URL: ${{ steps.stack.outputs.url }}
+          NEXT_PUBLIC_PORTAL_URL: ${{ steps.stack.outputs.portal }}
+          NEXT_PUBLIC_DESIGN_URL: ${{ steps.stack.outputs.design }}
+          NEXT_PUBLIC_MEETING_URL: ${{ steps.stack.outputs.meeting }}
 
       - name: Module coverage tests
         run: npm test
+        env:
+          NEXT_PUBLIC_SITE_URL: ${{ steps.stack.outputs.url }}
+          NEXT_PUBLIC_LANDING_URL: ${{ steps.stack.outputs.url }}
+          NEXT_PUBLIC_PORTAL_URL: ${{ steps.stack.outputs.portal }}
+          NEXT_PUBLIC_DESIGN_URL: ${{ steps.stack.outputs.design }}
+          NEXT_PUBLIC_MEETING_URL: ${{ steps.stack.outputs.meeting }}
 
       - name: Upload
         run: aws s3 sync out "s3://${{ steps.stack.outputs.bucket }}" --delete
